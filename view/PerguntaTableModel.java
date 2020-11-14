@@ -9,7 +9,7 @@ import model.Questao;
 
 public class PerguntaTableModel extends AbstractTableModel {
     private List<Questao> questoes = new ArrayList<Questao>();
-    private String[] colunas = new String[] { "id", "Pergunta", "Nº Alternativas" };
+    private String[] colunas = new String[] { "id", "Pergunta", "Dificuldade" };
 
     public PerguntaTableModel(List<Questao> questoes) {
         this.questoes = questoes;
@@ -49,7 +49,7 @@ public class PerguntaTableModel extends AbstractTableModel {
                     value = questao.getPergunta();
                     break;
                 case 2:
-                    value = "4";
+                    value = questao.getDificuldade();
                     break;
                 default:
                     System.err.printf("[ERRO] Indice de coluna inválido: %d\n", columnIndex);

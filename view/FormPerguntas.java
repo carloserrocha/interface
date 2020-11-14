@@ -59,6 +59,7 @@ public class FormPerguntas extends JPanel {
                 alt2Txt.setText("");
                 alt3Txt.setText("");
                 alt4Txt.setText("");
+                grupo1.clearSelection();
             }
         });
 
@@ -133,18 +134,27 @@ public class FormPerguntas extends JPanel {
                 if (perguntaTxt.getText().length() > 0) {
                     questao.setPergunta(perguntaTxt.getText());
                 } // validação de campo vazio
-                else if (altTxt.getText().length() > 0) {
+                if (altTxt.getText().length() > 0) {
                     questao.setAlternativa(altTxt.getText());
                 } // validação de campo vazio
-                else if (alt2Txt.getText().length() > 0) {
+                if (alt2Txt.getText().length() > 0) {
                     questao.setAlternativa2(alt2Txt.getText());
                 } // validação de campo vazio
-                else if (alt3Txt.getText().length() > 0) {
+                if (alt3Txt.getText().length() > 0) {
                     questao.setAlternativa3(alt3Txt.getText());
                 } // validação de campo vazio
-                else if (alt4Txt.getText().length() > 0) {
+                if (alt4Txt.getText().length() > 0) {
                     questao.setAlternativa4(alt4Txt.getText());
                 } // validação de campo vazio
+                if (facil.isSelected()) {
+                    questao.setDificuldade(facil.getText());
+                }
+                if (medio.isSelected()) {
+                    questao.setDificuldade(medio.getText());
+                }
+                if (dificil.isSelected()) {
+                    questao.setDificuldade(dificil.getText());
+                }
 
                 if ((perguntaTxt.getText().length() > 0) && (altTxt.getText().length() > 0)
                         && (alt2Txt.getText().length() > 0) && (alt3Txt.getText().length() > 0)
