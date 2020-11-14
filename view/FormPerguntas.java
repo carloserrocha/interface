@@ -9,11 +9,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.plaf.InsetsUIResource;
 
@@ -35,6 +37,12 @@ public class FormPerguntas extends JPanel {
     private JTextField alt4Txt;
     private JButton salvarBtn;
     private JButton cancelarBtn;
+
+    private JRadioButton facil;
+    private JRadioButton medio;
+    private JRadioButton dificil;
+
+    private ButtonGroup grupo1;
 
     public FormPerguntas(AppFrame appFrame) {
         this.frame = appFrame;
@@ -59,7 +67,6 @@ public class FormPerguntas extends JPanel {
 
     private void criarForm() {
         JLabel rotulo;
-
         rotulo = new JLabel("Id");
         addComponente(rotulo, 0, 0);
         idTxt = new JTextField(30);
@@ -71,29 +78,34 @@ public class FormPerguntas extends JPanel {
         perguntaTxt = new JTextField(30);
         perguntaTxt.setDocument(new LimitChar(100));
         addComponente(perguntaTxt, 1, 1);
-        rotulo = new JLabel("Primeira Alternativa");
+
+        rotulo = new JLabel("Selecione a dificuldade da questão:");
         addComponente(rotulo, 2, 0);
+        colocarRadio();
+
+        rotulo = new JLabel("Primeira Alternativa");
+        addComponente(rotulo, 3, 0);
         altTxt = new JTextField(30);
         altTxt.setDocument(new LimitChar(100));
-        addComponente(altTxt, 2, 1);
+        addComponente(altTxt, 3, 1);
 
         rotulo = new JLabel("Segunda Alternativa");
-        addComponente(rotulo, 3, 0);
+        addComponente(rotulo, 4, 0);
         alt2Txt = new JTextField(30);
         alt2Txt.setDocument(new LimitChar(100));
-        addComponente(alt2Txt, 3, 1);
+        addComponente(alt2Txt, 4, 1);
 
         rotulo = new JLabel("Terceira Alternativa");
-        addComponente(rotulo, 4, 0);
+        addComponente(rotulo, 5, 0);
         alt3Txt = new JTextField(30);
         alt3Txt.setDocument(new LimitChar(100));
-        addComponente(alt3Txt, 4, 1);
+        addComponente(alt3Txt, 5, 1);
 
         rotulo = new JLabel("Quarta Alternativa");
-        addComponente(rotulo, 5, 0);
+        addComponente(rotulo, 6, 0);
         alt4Txt = new JTextField(30);
         alt4Txt.setDocument(new LimitChar(100));
-        addComponente(alt4Txt, 5, 1);
+        addComponente(alt4Txt, 6, 1);
 
         criarBtn();
     }
@@ -179,6 +191,25 @@ public class FormPerguntas extends JPanel {
 
         add(componente);
 
+    }
+
+    private void colocarRadio() {
+        JPanel painelRadio = new JPanel();
+
+        facil = new JRadioButton("Fácil", false);
+        medio = new JRadioButton("Médio", false);
+        dificil = new JRadioButton("Difícil", false);
+
+        grupo1 = new ButtonGroup();
+        grupo1.add(facil);
+        grupo1.add(medio);
+        grupo1.add(dificil);
+
+        painelRadio.add(facil);
+        painelRadio.add(medio);
+        painelRadio.add(dificil);
+
+        addComponente(painelRadio, 2, 1);
     }
 
 }

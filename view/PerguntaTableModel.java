@@ -60,4 +60,9 @@ public class PerguntaTableModel extends AbstractTableModel {
         return value;
     }
 
+    public void carregar(List<Questao> questoes) {
+        this.questoes = questoes;
+        fireTableDataChanged();
+    }
+
 }

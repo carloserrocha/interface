@@ -20,7 +20,7 @@ public class ListaPerguntas extends JPanel {
     private JButton editarBtn;
     private JButton deletarBtn;
     private JTable tabela;
-    private PerguntaTableModel tableModel;
+    private static PerguntaTableModel tableModel;
 
     public ListaPerguntas(AppFrame appFrame) {
         setLayout(new BorderLayout(10, 10));
@@ -32,8 +32,8 @@ public class ListaPerguntas extends JPanel {
 
     }
 
-    public void recarregar() {
-
+    public static void recarregar() {
+        tableModel.carregar(MnDB.listar());
     }
 
     private void criarBotoes() {
