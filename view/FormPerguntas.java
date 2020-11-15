@@ -13,11 +13,13 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.plaf.InsetsUIResource;
 
+import model.MnDB;
 import model.Questao;
 
 public class FormPerguntas extends JPanel {
@@ -165,7 +167,7 @@ public class FormPerguntas extends JPanel {
                     else if (medio.isSelected()) {
                         questao.setDificuldade(medio.getText());
                     }
-                    else (dificil.isSelected()) {
+                    else if(dificil.isSelected()) {
                         questao.setDificuldade(dificil.getText());
                     }                
                     JOptionPane.showMessageDialog(FormPerguntas.this, "Questão criada com sucesso!", AppFrame.TITULO,
