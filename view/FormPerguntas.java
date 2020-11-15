@@ -163,20 +163,21 @@ public class FormPerguntas extends JPanel {
                     questao.setAlternativa4(alt4Txt.getText());
                     if (facil.isSelected()) {
                         questao.setDificuldade(facil.getText());
-                    }
-                    else if (medio.isSelected()) {
+                    } else if (medio.isSelected()) {
                         questao.setDificuldade(medio.getText());
-                    }
-                    else if(dificil.isSelected()) {
+                    } else if (dificil.isSelected()) {
                         questao.setDificuldade(dificil.getText());
-                    }                
-                    JOptionPane.showMessageDialog(FormPerguntas.this, "Questão criada com sucesso!", AppFrame.TITULO,
-                            JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
-                    if(FormPerguntas.this.questao == null){
+                    }
+
+                    if (FormPerguntas.this.questao == null) {
                         MnDB.inserir(questao);// insere a questão no "Banco de dados"
-                    }else{
+                        JOptionPane.showMessageDialog(FormPerguntas.this, "Questão criada com sucesso!",
+                                AppFrame.TITULO, JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
+                    } else {
                         questao.setId(Integer.parseInt(idTxt.getText()));
-                        MnDB.atualizar(questao);//atualiza a questão no "Banco de dados"
+                        MnDB.atualizar(questao);// atualiza a questão no "Banco de dados"
+                        JOptionPane.showMessageDialog(FormPerguntas.this, "Questão Editada com sucesso!",
+                                AppFrame.TITULO, JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
                     }
                     frame.mostrarPerguntas();// volta para a lista de perguntas
                 } else {
