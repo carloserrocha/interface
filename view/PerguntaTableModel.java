@@ -75,4 +75,9 @@ public class PerguntaTableModel extends AbstractTableModel {
         return questao;
     }
 
+    public void remover(Questao questao) {
+        questoes.remove(questao);
+        fireTableDataChanged();
+    }
+
 }

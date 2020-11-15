@@ -19,10 +19,6 @@ public class MnDB {
         }
     }
 
-    public static void remover(Questao questao) {
-        questoes.remove(questao);
-    }
-
     public static List<Questao> listar() {
         return questoes;
     }

@@ -79,13 +79,12 @@ public class ListaPerguntas extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object[] options = { "Sim", "Não" };
-                int i = JOptionPane.showOptionDialog(ListaPerguntas.this, "Desea remover a pergunta selecionada?",
+                int i = JOptionPane.showOptionDialog(ListaPerguntas.this, "Deseja remover a pergunta selecionada?",
                         AppFrame.TITULO, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,
                         options[0]);
                 if (i == JOptionPane.YES_OPTION) {
                     Questao questao = tableModel.getQuestao(tabela.getSelectedRow());
-                    MnDB.remover(questao);
-                    frame.mostrarPerguntas();
+                    tableModel.remover(questao);
                 } else {
                     frame.mostrarPerguntas();
                 }
