@@ -5,6 +5,8 @@ import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import model.Questao;
+
 public class AppFrame extends JFrame {
     public static final String TITULO = "Mundo dos Numeros";
 
@@ -12,8 +14,8 @@ public class AppFrame extends JFrame {
     private JPanel cardsPanel;
 
     private InicialProfessor painelInicial;
-    private ListaPerguntas painelListadeTarefas;
-    private FormPerguntas painelFormTarefas;
+    private ListaPerguntas painelListadePerguntas;
+    private FormPerguntas painelFormPerguntas;
 
     public AppFrame() {
         super(TITULO);
@@ -41,7 +43,8 @@ public class AppFrame extends JFrame {
         layout.show(cardsPanel, ListaPerguntas.class.getName());
     }
 
-    public void mostrarFormPerguntas() {
+    public void mostrarFormPerguntas(Questao questao) {
+        painelFormPerguntas.setQuestao(questao);
         layout.show(cardsPanel, FormPerguntas.class.getName());
     }
 
@@ -53,10 +56,10 @@ public class AppFrame extends JFrame {
         painelInicial = new InicialProfessor(this);
         cardsPanel.add(painelInicial, InicialProfessor.class.getName());
 
-        painelListadeTarefas = new ListaPerguntas(this);
-        cardsPanel.add(painelListadeTarefas, ListaPerguntas.class.getName());
+        painelListadePerguntas = new ListaPerguntas(this);
+        cardsPanel.add(painelListadePerguntas, ListaPerguntas.class.getName());
 
-        painelFormTarefas = new FormPerguntas(this);
-        cardsPanel.add(painelFormTarefas, FormPerguntas.class.getName());
+        painelFormPerguntas = new FormPerguntas(this);
+        cardsPanel.add(painelFormPerguntas, FormPerguntas.class.getName());
     }
 }

@@ -14,6 +14,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import model.MnDB;
+import model.Questao;
 
 public class ListaPerguntas extends JPanel {
     private AppFrame frame;
@@ -32,7 +33,7 @@ public class ListaPerguntas extends JPanel {
         criarBotoes();
         criarTabela();
 
-    }
+    }// construtor
 
     public static void recarregar() {
         tableModel.carregar(MnDB.listar());
@@ -53,23 +54,24 @@ public class ListaPerguntas extends JPanel {
 
         panel.add(voltarBtn);// Botão voltar
 
-        novaBtn = new JButton("Criar Pergunta");
+        novaBtn = new JButton("Criar Pergunta");// Criar Pergunta
         novaBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.mostrarFormPerguntas();
+                frame.mostrarFormPerguntas(null);
             }
         });
-        panel.add(novaBtn);// Criar Pergunta
+        panel.add(novaBtn);
 
-        editarBtn = new JButton("Editar Pergunta");
+        editarBtn = new JButton("Editar Pergunta");// Editar Pergunta
         editarBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.mostrarFormPerguntas();
+                Questao questao = tableModel.getQuestao(tabela.getSelectedRow());
+                frame.mostrarFormPerguntas(questao);
             }
         });
-        panel.add(editarBtn);// Editar Pergunta
+        panel.add(editarBtn);
 
         deletarBtn = new JButton("Deletar Pergunta");
         panel.add(deletarBtn);// Deletar Pergunta

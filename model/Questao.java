@@ -8,6 +8,7 @@ public class Questao {
     private String alternativa3;
     private String alternativa4;
     private String dificuldade;
+    private Object idBtn;
 
     public int getId() {
         return id;
@@ -63,6 +64,14 @@ public class Questao {
 
     public void setDificuldade(String dificuldade) {
         this.dificuldade = dificuldade;
+    }
+
+    public void setIdBtn(Object idBtn) {
+        this.idBtn = idBtn;
+    }
+
+    public Object getIdBtn() {
+        return idBtn;
     }
 
     @Override

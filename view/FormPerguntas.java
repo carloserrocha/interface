@@ -13,13 +13,11 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.plaf.InsetsUIResource;
 
-import model.MnDB;
 import model.Questao;
 
 public class FormPerguntas extends JPanel {
@@ -44,26 +42,47 @@ public class FormPerguntas extends JPanel {
 
     private ButtonGroup grupo1;
 
+    private Questao questao;
+
     public FormPerguntas(AppFrame appFrame) {
         this.frame = appFrame;
+
         layout = new GridBagLayout();
         constraints = new GridBagConstraints();
+
+        questao = null;
 
         setLayout(layout);
         // Zerar campos do formulario.
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentShown(ComponentEvent e) {
-                perguntaTxt.setText("");
-                altTxt.setText("");
-                alt2Txt.setText("");
-                alt3Txt.setText("");
-                alt4Txt.setText("");
-                grupo1.clearSelection();
+                if (questao == null) {
+                    idTxt.setText("");
+                    perguntaTxt.setText("");
+                    altTxt.setText("");
+                    alt2Txt.setText("");
+                    alt3Txt.setText("");
+                    alt4Txt.setText("");
+                    grupo1.clearSelection();
+                } else {
+                    idTxt.setText(Integer.toString(questao.getId()));
+                    perguntaTxt.setText(questao.getPergunta());
+                    altTxt.setText(questao.getAlternativa());
+                    alt2Txt.setText(questao.getAlternativa2());
+                    alt3Txt.setText(questao.getAlternativa3());
+                    alt4Txt.setText(questao.getAlternativa4());
+                    grupo1.equals(questao.getIdBtn());
+                }
+
             }
         });
 
         criarForm();
+    }
+
+    public void setQuestao(Questao questao) {
+        this.questao = questao;
     }
 
     private void criarForm() {
@@ -128,40 +147,35 @@ public class FormPerguntas extends JPanel {
     private void saveBtn() {
         salvarBtn = new JButton("Salvar");
         salvarBtn.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 Questao questao = new Questao();
-                if (perguntaTxt.getText().length() > 0) {
-                    questao.setPergunta(perguntaTxt.getText());
-                } // validação de campo vazio
-                if (altTxt.getText().length() > 0) {
-                    questao.setAlternativa(altTxt.getText());
-                } // validação de campo vazio
-                if (alt2Txt.getText().length() > 0) {
-                    questao.setAlternativa2(alt2Txt.getText());
-                } // validação de campo vazio
-                if (alt3Txt.getText().length() > 0) {
-                    questao.setAlternativa3(alt3Txt.getText());
-                } // validação de campo vazio
-                if (alt4Txt.getText().length() > 0) {
-                    questao.setAlternativa4(alt4Txt.getText());
-                } // validação de campo vazio
-                if (facil.isSelected()) {
-                    questao.setDificuldade(facil.getText());
-                }
-                if (medio.isSelected()) {
-                    questao.setDificuldade(medio.getText());
-                }
-                if (dificil.isSelected()) {
-                    questao.setDificuldade(dificil.getText());
-                }
-
                 if ((perguntaTxt.getText().length() > 0) && (altTxt.getText().length() > 0)
                         && (alt2Txt.getText().length() > 0) && (alt3Txt.getText().length() > 0)
                         && (alt4Txt.getText().length() > 0)) {
+                    questao.setPergunta(perguntaTxt.getText());
+                    questao.setAlternativa(altTxt.getText());
+                    questao.setAlternativa2(alt2Txt.getText());
+                    questao.setAlternativa3(alt3Txt.getText());
+                    questao.setAlternativa4(alt4Txt.getText());
+                    if (facil.isSelected()) {
+                        questao.setDificuldade(facil.getText());
+                    }
+                    else if (medio.isSelected()) {
+                        questao.setDificuldade(medio.getText());
+                    }
+                    else (dificil.isSelected()) {
+                        questao.setDificuldade(dificil.getText());
+                    }                
                     JOptionPane.showMessageDialog(FormPerguntas.this, "Questão criada com sucesso!", AppFrame.TITULO,
                             JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
-                    MnDB.inserir(questao);// insere a questão no "Banco de dados"
+                    if(FormPerguntas.this.questao == null){
+                        MnDB.inserir(questao);// insere a questão no "Banco de dados"
+                    }else{
+                        questao.setId(Integer.parseInt(idTxt.getText()));
+                        MnDB.atualizar(questao);//atualiza a questão no "Banco de dados"
+                    }
                     frame.mostrarPerguntas();// volta para a lista de perguntas
                 } else {
                     JOptionPane.showMessageDialog(FormPerguntas.this,

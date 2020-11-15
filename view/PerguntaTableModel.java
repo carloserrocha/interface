@@ -65,4 +65,14 @@ public class PerguntaTableModel extends AbstractTableModel {
         fireTableDataChanged();
     }
 
+    public Questao getQuestao(int rowIndex) {
+        Questao questao = null;
+
+        if (rowIndex >= 0 && rowIndex < questoes.size()) {
+            questao = questoes.get(rowIndex);
+        }
+
+        return questao;
+    }
+
 }
