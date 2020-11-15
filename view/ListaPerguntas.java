@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -74,6 +75,20 @@ public class ListaPerguntas extends JPanel {
         panel.add(editarBtn);
 
         deletarBtn = new JButton("Deletar Pergunta");
+        deletarBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int i = JOptionPane.showConfirmDialog(ListaPerguntas.this, "Desea remover a pergunta selecionada?",
+                        AppFrame.TITULO, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (i == JOptionPane.YES_OPTION) {
+                    Questao questao = tableModel.getQuestao(tabela.getSelectedRow());
+                    MnDB.remover(questao);
+                    frame.mostrarPerguntas();
+                } else {
+                    frame.mostrarPerguntas();
+                }
+            }
+        });
         panel.add(deletarBtn);// Deletar Pergunta
 
         add(panel, BorderLayout.NORTH);

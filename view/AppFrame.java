@@ -39,7 +39,6 @@ public class AppFrame extends JFrame {
 
     public void mostrarPerguntas() {
         ListaPerguntas.recarregar();
-
         layout.show(cardsPanel, ListaPerguntas.class.getName());
     }
 
