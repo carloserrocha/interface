@@ -1,14 +1,28 @@
 package model;
 
-public class Questao {
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
+import javax.swing.JComponent;
+import javax.swing.plaf.InsetsUIResource;
+
+import view.AppFrame;
+
+public abstract class Questao {
+    private AppFrame frame;
+
+    private static final Insets FIELD_INSETS = new InsetsUIResource(5, 10, 0, 0);
+    private GridBagLayout layout;
+    private GridBagConstraints constraints;
+
     private int id;
     private String pergunta;
-    private String alternativa;
-    private String alternativa2;
-    private String alternativa3;
-    private String alternativa4;
-    private String dificuldade;
-    private Object idBtn;
+    private String resposta;
+
+    public Questao(AppFrame appFrame) {
+        this.frame = appFrame;
+    }
 
     public int getId() {
         return id;
@@ -26,57 +40,19 @@ public class Questao {
         this.pergunta = pergunta;
     }
 
-    public String getAlternativa() {
-        return alternativa;
+    public String getResposta() {
+        return resposta;
     }
 
-    public void setAlternativa(String alternativa) {
-        this.alternativa = alternativa;
+    public void setResposta(String resposta) {
+        this.resposta = resposta;
     }
 
-    public String getAlternativa2() {
-        return alternativa2;
-    }
-
-    public void setAlternativa2(String alternativa2) {
-        this.alternativa2 = alternativa2;
-    }
-
-    public String getAlternativa3() {
-        return alternativa3;
-    }
-
-    public void setAlternativa3(String alternativa3) {
-        this.alternativa3 = alternativa3;
-    }
-
-    public String getAlternativa4() {
-        return alternativa4;
-    }
-
-    public void setAlternativa4(String alternativa4) {
-        this.alternativa4 = alternativa4;
-    }
-
-    public String getDificuldade() {
-        return this.dificuldade;
-    }
-
-    public void setDificuldade(String dificuldade) {
-        this.dificuldade = dificuldade;
-    }
-
-    public void setIdBtn(Object idBtn) {
-        this.idBtn = idBtn;
-    }
-
-    public Object getIdBtn() {
-        return idBtn;
-    }
+    public abstract void exibirAlternativas();
 
     @Override
     public String toString() {
-        return String.format("%d: %s, %s", id, pergunta, alternativa);
+        return String.format("%d: %s, %s", id, pergunta);
     }
 
     @Override
@@ -92,6 +68,26 @@ public class Questao {
         }
         Questao outraQuestao = (Questao) obj;
         return id == outraQuestao.id;
+    }
+
+    private void addComponente(JComponent rotulo, int linha, int coluna) {
+
+        addComponente(rotulo, linha, coluna, 1, 1);
+    }
+
+    private void addComponente(JComponent componente, int linha, int coluna, int largura, int altura) {
+        constraints.gridx = coluna;
+        constraints.gridy = linha;
+        constraints.gridwidth = largura;
+        constraints.gridheight = altura;
+
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.insets = FIELD_INSETS;
+
+        layout.setConstraints(componente, constraints);
+
+        add(componente);
+
     }
 
 }// fim da classe Questão

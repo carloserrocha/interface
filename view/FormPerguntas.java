@@ -21,6 +21,9 @@ import javax.swing.plaf.InsetsUIResource;
 
 import model.MnDB;
 import model.Questao;
+import model.QuestaoDificil;
+import model.QuestaoFacil;
+import model.QuestaoMedio;
 
 public class FormPerguntas extends JPanel {
     private AppFrame frame;
@@ -31,6 +34,7 @@ public class FormPerguntas extends JPanel {
 
     private JTextField idTxt;
     private JTextField perguntaTxt;
+    private JTextField resposta;
     private JTextField altTxt;
     private JTextField alt2Txt;
     private JTextField alt3Txt;
@@ -62,6 +66,7 @@ public class FormPerguntas extends JPanel {
                 if (questao == null) {
                     idTxt.setText("");
                     perguntaTxt.setText("");
+                    resposta.setText("");
                     altTxt.setText("");
                     alt2Txt.setText("");
                     alt3Txt.setText("");
@@ -70,11 +75,20 @@ public class FormPerguntas extends JPanel {
                 } else {
                     idTxt.setText(Integer.toString(questao.getId()));
                     perguntaTxt.setText(questao.getPergunta());
+                    resposta.setText(questao.getResposta());
                     altTxt.setText(questao.getAlternativa());
                     alt2Txt.setText(questao.getAlternativa2());
                     alt3Txt.setText(questao.getAlternativa3());
                     alt4Txt.setText(questao.getAlternativa4());
-                    grupo1.equals(questao.getIdBtn());
+
+                    if (questao.getDificuldade() == "Fácil") {
+                        facil.setSelected(true);
+                    } else if (questao.getDificuldade() == "Médio") {
+                        medio.setSelected(true);
+                    } else {
+                        dificil.setSelected(true);
+                    }
+
                 }
 
             }
@@ -101,33 +115,25 @@ public class FormPerguntas extends JPanel {
         perguntaTxt.setDocument(new LimitChar(100));
         addComponente(perguntaTxt, 1, 1);
 
-        rotulo = new JLabel("Selecione a dificuldade da questão:");
+        rotulo = new JLabel("Resposta");
         addComponente(rotulo, 2, 0);
-        colocarRadio();
+        resposta = new JTextField(30);
+        resposta.setDocument(new LimitChar(100));
+        addComponente(resposta, 2, 1);
 
-        rotulo = new JLabel("Primeira Alternativa");
+        rotulo = new JLabel("Selecione a dificuldade da questão:");
         addComponente(rotulo, 3, 0);
-        altTxt = new JTextField(30);
-        altTxt.setDocument(new LimitChar(100));
-        addComponente(altTxt, 3, 1);
-
-        rotulo = new JLabel("Segunda Alternativa");
-        addComponente(rotulo, 4, 0);
-        alt2Txt = new JTextField(30);
-        alt2Txt.setDocument(new LimitChar(100));
-        addComponente(alt2Txt, 4, 1);
-
-        rotulo = new JLabel("Terceira Alternativa");
-        addComponente(rotulo, 5, 0);
-        alt3Txt = new JTextField(30);
-        alt3Txt.setDocument(new LimitChar(100));
-        addComponente(alt3Txt, 5, 1);
-
-        rotulo = new JLabel("Quarta Alternativa");
-        addComponente(rotulo, 6, 0);
-        alt4Txt = new JTextField(30);
-        alt4Txt.setDocument(new LimitChar(100));
-        addComponente(alt4Txt, 6, 1);
+        colocarRadio();
+        if (facil.isSelected()) {
+            Questao q = new QuestaoFacil();
+            q.exibirAlternativas();
+        } else if (medio.isSelected()) {
+            Questao q = new QuestaoMedio();
+            q.exibirAlternativas();
+        } else if (dificil.isSelected()) {
+            Questao q = new QuestaoDificil();
+            q.exibirAlternativas();
+        }
 
         criarBtn();
     }
@@ -142,7 +148,7 @@ public class FormPerguntas extends JPanel {
         cancelBtn();
         btnPanel.add(cancelarBtn);
 
-        addComponente(btnPanel, 7, 1, 2, 1);
+        addComponente(btnPanel, 8, 1, 2, 1);
 
     }
 
@@ -152,39 +158,34 @@ public class FormPerguntas extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Questao questao = new Questao();
-                if ((perguntaTxt.getText().length() > 0) && (altTxt.getText().length() > 0)
-                        && (alt2Txt.getText().length() > 0) && (alt3Txt.getText().length() > 0)
-                        && (alt4Txt.getText().length() > 0)) {
-                    questao.setPergunta(perguntaTxt.getText());
-                    questao.setAlternativa(altTxt.getText());
-                    questao.setAlternativa2(alt2Txt.getText());
-                    questao.setAlternativa3(alt3Txt.getText());
-                    questao.setAlternativa4(alt4Txt.getText());
-                    if (facil.isSelected()) {
-                        questao.setDificuldade(facil.getText());
-                    } else if (medio.isSelected()) {
-                        questao.setDificuldade(medio.getText());
-                    } else if (dificil.isSelected()) {
-                        questao.setDificuldade(dificil.getText());
-                    }
+                if (facil.isSelected()) {
+                    Questao q = new QuestaoFacil();
+                    q.criarQuestao();
 
-                    if (FormPerguntas.this.questao == null) {
-                        MnDB.inserir(questao);// insere a questão no "Banco de dados"
-                        JOptionPane.showMessageDialog(FormPerguntas.this, "Questão criada com sucesso!",
-                                AppFrame.TITULO, JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
-                    } else {
-                        questao.setId(Integer.parseInt(idTxt.getText()));
-                        MnDB.atualizar(questao);// atualiza a questão no "Banco de dados"
-                        JOptionPane.showMessageDialog(FormPerguntas.this, "Questão Editada com sucesso!",
-                                AppFrame.TITULO, JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
-                    }
-                    frame.mostrarPerguntas();// volta para a lista de perguntas
-                } else {
-                    JOptionPane.showMessageDialog(FormPerguntas.this,
-                            "Voce esqueceu de preencher um campo, verifique e tente novamente!", AppFrame.TITULO,
-                            JOptionPane.ERROR_MESSAGE);// mensagem de erro par alertar o usuário que tem campos vazios
+                } else if (medio.isSelected()) {
+                    Questao altm = new QuestaoMedio();
+                } else if (dificil.isSelected()) {
+                    Questao altd = new QuestaoDificil();
+
                 }
+
+                if (FormPerguntas.this.questao == null) {
+                    MnDB.inserir(questao);// insere a questão no "Banco de dados"
+                    JOptionPane.showMessageDialog(FormPerguntas.this, "Questão criada com sucesso!", AppFrame.TITULO,
+                            JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
+                } else {
+                    questao.setId(Integer.parseInt(idTxt.getText()));
+                    MnDB.atualizar(questao);// atualiza a questão no "Banco de dados"
+                    JOptionPane.showMessageDialog(FormPerguntas.this, "Questão Editada com sucesso!", AppFrame.TITULO,
+                            JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
+                }
+                frame.mostrarPerguntas();// volta para a lista de perguntas
+                /*
+                 * } else { JOptionPane.showMessageDialog(FormPerguntas.this,
+                 * "Voce esqueceu de preencher um campo, verifique e tente novamente!",
+                 * AppFrame.TITULO, JOptionPane.ERROR_MESSAGE);// mensagem de erro par alertar o
+                 * usuário que tem campos vazios }
+                 */
             }
 
         });
@@ -236,7 +237,7 @@ public class FormPerguntas extends JPanel {
         painelRadio.add(medio);
         painelRadio.add(dificil);
 
-        addComponente(painelRadio, 2, 1);
+        addComponente(painelRadio, 3, 1);
     }
 
 }
