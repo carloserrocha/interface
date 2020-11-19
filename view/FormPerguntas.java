@@ -76,19 +76,22 @@ public class FormPerguntas extends JPanel {
                     idTxt.setText(Integer.toString(questao.getId()));
                     perguntaTxt.setText(questao.getPergunta());
                     resposta.setText(questao.getResposta());
+                }
+                if (questao.getDificuldade() == "Fácil") {
+                    facil.setSelected(true);
+                    altTxt.setText(questao.getAlternativa());
+                    alt2Txt.setText(questao.getAlternativa2());
+                } else if (questao.getDificuldade() == "Médio") {
+                    medio.setSelected(true);
+                    altTxt.setText(questao.getAlternativa());
+                    alt2Txt.setText(questao.getAlternativa2());
+                    alt3Txt.setText(questao.getAlternativa3());
+                } else {
+                    dificil.setSelected(true);
                     altTxt.setText(questao.getAlternativa());
                     alt2Txt.setText(questao.getAlternativa2());
                     alt3Txt.setText(questao.getAlternativa3());
                     alt4Txt.setText(questao.getAlternativa4());
-
-                    if (questao.getDificuldade() == "Fácil") {
-                        facil.setSelected(true);
-                    } else if (questao.getDificuldade() == "Médio") {
-                        medio.setSelected(true);
-                    } else {
-                        dificil.setSelected(true);
-                    }
-
                 }
 
             }
@@ -124,16 +127,6 @@ public class FormPerguntas extends JPanel {
         rotulo = new JLabel("Selecione a dificuldade da questão:");
         addComponente(rotulo, 3, 0);
         colocarRadio();
-        if (facil.isSelected()) {
-            Questao q = new QuestaoFacil();
-            q.exibirAlternativas();
-        } else if (medio.isSelected()) {
-            Questao q = new QuestaoMedio();
-            q.exibirAlternativas();
-        } else if (dificil.isSelected()) {
-            Questao q = new QuestaoDificil();
-            q.exibirAlternativas();
-        }
 
         criarBtn();
     }
@@ -160,16 +153,21 @@ public class FormPerguntas extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (facil.isSelected()) {
                     Questao q = new QuestaoFacil();
-                    q.criarQuestao();
+                    q.criarQuestao(perguntaTxt, resposta, altTxt, alt2Txt);
 
                 } else if (medio.isSelected()) {
-                    Questao altm = new QuestaoMedio();
+                    Questao q = new QuestaoMedio();
+                    q.criarQuestao(perguntaTxt, resposta, altTxt, alt2Txt, alt3Txt);
                 } else if (dificil.isSelected()) {
-                    Questao altd = new QuestaoDificil();
-
+                    Questao q = new QuestaoDificil();
+                    q.criarQuestao(perguntaTxt, resposta, altTxt, alt2Txt, alt3Txt, alt4Txt);
                 }
-
-                if (FormPerguntas.this.questao == null) {
+                if (perguntaTxt != null && resposta != null && altTxt != null && alt2Txt != null) {
+                    JOptionPane.showMessageDialog(FormPerguntas.this,
+                            "Voce esqueceu de preencher um campo, verifique e tente novamente!", AppFrame.TITULO,
+                            JOptionPane.ERROR_MESSAGE);// mensagem de erro par alertar o usuário que tem campos vazios
+                }
+                if (idTxt.getText().isBlank()) {
                     MnDB.inserir(questao);// insere a questão no "Banco de dados"
                     JOptionPane.showMessageDialog(FormPerguntas.this, "Questão criada com sucesso!", AppFrame.TITULO,
                             JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
@@ -179,13 +177,9 @@ public class FormPerguntas extends JPanel {
                     JOptionPane.showMessageDialog(FormPerguntas.this, "Questão Editada com sucesso!", AppFrame.TITULO,
                             JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
                 }
+
                 frame.mostrarPerguntas();// volta para a lista de perguntas
-                /*
-                 * } else { JOptionPane.showMessageDialog(FormPerguntas.this,
-                 * "Voce esqueceu de preencher um campo, verifique e tente novamente!",
-                 * AppFrame.TITULO, JOptionPane.ERROR_MESSAGE);// mensagem de erro par alertar o
-                 * usuário que tem campos vazios }
-                 */
+
             }
 
         });
@@ -237,7 +231,28 @@ public class FormPerguntas extends JPanel {
         painelRadio.add(medio);
         painelRadio.add(dificil);
 
+        ButtonHandler handler = new ButtonHandler();
+        facil.addActionListener(handler);
+        medio.addActionListener(handler);
+        dificil.addActionListener(handler);
+
         addComponente(painelRadio, 3, 1);
+    }
+
+    public class ButtonHandler implements ActionListener {
+        // TRATA EVENTO DO BOTÃO
+        public void actionPerformed(ActionEvent event) {
+            if (facil.isSelected()) {
+                Questao q = new QuestaoFacil();
+                q.exibirAlternativas();
+            } else if (medio.isSelected()) {
+                Questao q = new QuestaoMedio();
+                q.exibirAlternativas();
+            } else if (dificil.isSelected()) {
+                Questao q = new QuestaoDificil();
+                q.exibirAlternativas();
+            }
+        }
     }
 
 }
