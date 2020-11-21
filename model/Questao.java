@@ -1,27 +1,13 @@
 package model;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-
-import javax.swing.JComponent;
-import javax.swing.plaf.InsetsUIResource;
-
-import view.AppFrame;
-
 public abstract class Questao {
-    private AppFrame frame;
-
-    private static final Insets FIELD_INSETS = new InsetsUIResource(5, 10, 0, 0);
-    private GridBagLayout layout;
-    private GridBagConstraints constraints;
-
     private int id;
     private String pergunta;
     private String resposta;
+    private Dificuldade dificuldade;
 
-    public Questao(AppFrame appFrame) {
-        this.frame = appFrame;
+    public Questao() {
+
     }
 
     public int getId() {
@@ -48,11 +34,17 @@ public abstract class Questao {
         this.resposta = resposta;
     }
 
-    public abstract void exibirAlternativas();
+    public String getDificuldade() {
+        return this.dificuldade.getDescricao();
+    }
+
+    public void setDificuldade(Dificuldade dificuldade) {
+        this.dificuldade = dificuldade;
+    }
 
     @Override
     public String toString() {
-        return String.format("%d: %s, %s", id, pergunta);
+        return String.format("%d: %s", id, pergunta);
     }
 
     @Override
@@ -69,25 +61,4 @@ public abstract class Questao {
         Questao outraQuestao = (Questao) obj;
         return id == outraQuestao.id;
     }
-
-    private void addComponente(JComponent rotulo, int linha, int coluna) {
-
-        addComponente(rotulo, linha, coluna, 1, 1);
-    }
-
-    private void addComponente(JComponent componente, int linha, int coluna, int largura, int altura) {
-        constraints.gridx = coluna;
-        constraints.gridy = linha;
-        constraints.gridwidth = largura;
-        constraints.gridheight = altura;
-
-        constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.insets = FIELD_INSETS;
-
-        layout.setConstraints(componente, constraints);
-
-        add(componente);
-
-    }
-
 }// fim da classe Questão
