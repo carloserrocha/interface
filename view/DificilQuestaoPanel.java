@@ -3,7 +3,6 @@ package view;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -16,6 +15,7 @@ public class DificilQuestaoPanel extends QuestaoPanel {
 	layout = new GridBagLayout();
 	constraints = new GridBagConstraints();
 	this.formulario = formperguntas;
+	
 	
     }
 

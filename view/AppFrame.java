@@ -61,16 +61,4 @@ public class AppFrame extends JFrame {
         painelFormPerguntas = new FormPerguntas(this);
         cardsPanel.add(painelFormPerguntas, FormPerguntas.class.getName());
     }
-
-    public void mostrarFacil() {
-        layout.show(cardsPanel, FormPerguntas.class.getName());
-    }
-
-    public void mostrarMedio() {
-        layout.show(cardsPanel, FormPerguntas.class.getName());
-    }
-
-    public void mostrarDificil() {
-        layout.show(cardsPanel, FormPerguntas.class.getName());
-    }
 }

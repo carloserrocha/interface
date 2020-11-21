@@ -113,13 +113,14 @@ public class FormPerguntas extends JPanel {
 
         rotulo = new JLabel("Selecione a dificuldade da questão:");
         addComponente(rotulo, 3, 0);
-        colocarRadio();
 
         layoutAltern = new CardLayout();
         cardsPanelAltern = new JPanel();
         cardsPanelAltern.setLayout(layoutAltern);
         addComponente(cardsPanelAltern, 4, 0, 3, 3);
-        panelAltern.painelAltenativas();
+
+        colocarRadio();
+        facil.setSelected(true);
 
         criarBtn();
     }
@@ -144,22 +145,15 @@ public class FormPerguntas extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                /*if (facil.isSelected()) {
-                    Questao q = new QuestaoFacil();
-                    q.criarQuestao(perguntaTxt, resposta, altTxt, alt2Txt);
-
-                } else if (medio.isSelected()) {
-                    Questao q = new QuestaoMedio();
-                    q.criarQuestao(perguntaTxt, resposta, altTxt, alt2Txt, alt3Txt);
-                } else if (dificil.isSelected()) {
-                    Questao q = new QuestaoDificil();
-                    q.criarQuestao(perguntaTxt, resposta, altTxt, alt2Txt, alt3Txt, alt4Txt);
-                }
                 if (perguntaTxt != null && resposta != null && altTxt != null && alt2Txt != null) {
                     JOptionPane.showMessageDialog(FormPerguntas.this,
                             "Voce esqueceu de preencher um campo, verifique e tente novamente!", AppFrame.TITULO,
-                            JOptionPane.ERROR_MESSAGE);// mensagem de erro par alertar o usuário que tem campos vazios
-                }*/
+                            JOptionPane.ERROR_MESSAGE);
+                } // mensagem de erro par alertar o usuário que tem campos vazios
+                if (facil.isSelected() == true) {
+
+                }
+
                 if (idTxt.getText().isBlank()) {
                     MnDB.inserir(questao);// insere a questão no "Banco de dados"
                     JOptionPane.showMessageDialog(FormPerguntas.this, "Questão criada com sucesso!", AppFrame.TITULO,
@@ -174,7 +168,6 @@ public class FormPerguntas extends JPanel {
                 frame.mostrarPerguntas();// volta para a lista de perguntas
 
             }
-
         });
     }
 
@@ -242,13 +235,19 @@ public class FormPerguntas extends JPanel {
         public void actionPerformed(ActionEvent e) {
             if (facil.isSelected() == true) {
                 panelAltern = new FacilQuestaoPanel(form);
+                panelAltern.painelAltenativas();
+                layoutAltern.show(cardsPanelAltern, FormPerguntas.class.getName());
+
             }
             if (medio.isSelected() == true) {
                 panelAltern = new MediaQuestaoPanel(form);
+                panelAltern.painelAltenativas();
+                layoutAltern.show(cardsPanelAltern, FormPerguntas.class.getName());
             }
             if (dificil.isSelected() == true) {
                 panelAltern = new DificilQuestaoPanel(form);
-
+                panelAltern.painelAltenativas();
+                layoutAltern.show(cardsPanelAltern, FormPerguntas.class.getName());
             }
         }
     }
