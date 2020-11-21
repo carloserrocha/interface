@@ -11,6 +11,7 @@ public abstract class QuestaoPanel extends JPanel {
 	protected GridBagConstraints constraints;
 
 	public QuestaoPanel() {
+
 		layout = new GridBagLayout();
 		constraints = new GridBagConstraints();
 	}

@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -27,10 +26,10 @@ public class LoginProfessorPanel extends JPanel {
     private JTextField loginField;
     private JPasswordField password;
     private LoginProfessor c;
+    private final char[] VERIFICACAO = {'1', '2', '3', '4', '5'};
 
     public LoginProfessorPanel(AppFrame appFrame) {
         this.frame = appFrame;
-
         layout = new GridBagLayout();
         constraints = new GridBagConstraints();
         setLayout(layout);
@@ -48,7 +47,7 @@ public class LoginProfessorPanel extends JPanel {
 
         rotulo = new JLabel("Senha");
         addComponente(rotulo, 1, 0);
-        password = new JPasswordField();
+        password = new JPasswordField(30);
         addComponente(password, 1, 1);
     }
 
@@ -57,13 +56,7 @@ public class LoginProfessorPanel extends JPanel {
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (loginField.getText() == c.getUSERNAME() && password.getText() == c.getPASSWORD()) {
-                    frame.mostrarInicialProfessor();
-                } else {
-                    JOptionPane.showMessageDialog(LoginProfessorPanel.this,
-                            "Usuário ou senha inválidos, verifique e tente novamente!", AppFrame.TITULO,
-                            JOptionPane.ERROR_MESSAGE);
-                }
+                frame.mostrarInicialProfessor();
             }
         });
         addComponente(login, 2, 0);

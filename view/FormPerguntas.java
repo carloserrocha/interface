@@ -30,6 +30,7 @@ public class FormPerguntas extends JPanel {
 
     private JTextField idTxt;
     private JTextField perguntaTxt;
+    private JTextField dicaTxt;
     private JTextField resposta;
     private JTextField altTxt;
     private JTextField alt2Txt;
@@ -105,24 +106,49 @@ public class FormPerguntas extends JPanel {
         perguntaTxt.setDocument(new LimitChar(100));
         addComponente(perguntaTxt, 1, 1);
 
-        rotulo = new JLabel("Resposta");
+        rotulo = new JLabel("Dica");
         addComponente(rotulo, 2, 0);
+        dicaTxt = new JTextField(30);
+        dicaTxt.setDocument(new LimitChar(100));
+        addComponente(dicaTxt, 2, 1);
+
+        rotulo = new JLabel("Resposta");
+        addComponente(rotulo, 3, 0);
         resposta = new JTextField(30);
         resposta.setDocument(new LimitChar(100));
-        addComponente(resposta, 2, 1);
+        addComponente(resposta, 3, 1);
 
         rotulo = new JLabel("Selecione a dificuldade da questão:");
-        addComponente(rotulo, 3, 0);
-
+        addComponente(rotulo, 4, 0);
+        colocarRadio();
+        facil.setSelected(true);
         layoutAltern = new CardLayout();
         cardsPanelAltern = new JPanel();
         cardsPanelAltern.setLayout(layoutAltern);
-        addComponente(cardsPanelAltern, 4, 0, 3, 3);
-
-        colocarRadio();
-        facil.setSelected(true);
-
+        addComponente(cardsPanelAltern, 6, 0, 3, 3);
+        alterCards();
+        mostrarAlternativas();
         criarBtn();
+    }
+
+    public void mostrarAlternativas() {
+        panelAltern.painelAltenativas();
+    }
+
+    public void alterCards() {
+        if (facil.isSelected() == true) {
+            panelAltern = new FacilQuestaoPanel(this);
+            cardsPanelAltern.add(panelAltern, FacilQuestaoPanel.class.getName());
+        }
+
+        if (medio.isSelected() == true) {
+            panelAltern = new MediaQuestaoPanel(this);
+            cardsPanelAltern.add(panelAltern, MediaQuestaoPanel.class.getName());
+        }
+        if (dificil.isSelected() == true) {
+            panelAltern = new DificilQuestaoPanel(this);
+            cardsPanelAltern.add(panelAltern, DificilQuestaoPanel.class.getName());
+        }
     }
 
     private void criarBtn() {
@@ -135,7 +161,7 @@ public class FormPerguntas extends JPanel {
         cancelBtn();
         btnPanel.add(cancelarBtn);
 
-        addComponente(btnPanel, 8, 1, 2, 1);
+        addComponente(btnPanel, 10, 1, 2, 1);
 
     }
 
@@ -145,14 +171,11 @@ public class FormPerguntas extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (perguntaTxt != null && resposta != null) {
+                if (perguntaTxt == null && resposta == null) {
                     JOptionPane.showMessageDialog(FormPerguntas.this,
                             "Voce esqueceu de preencher um campo, verifique e tente novamente!", AppFrame.TITULO,
                             JOptionPane.ERROR_MESSAGE);
                 } // mensagem de erro par alertar o usuário que tem campos vazios
-                if (facil.isSelected() == true) {
-
-                }
 
                 if (idTxt.getText().isBlank()) {
                     MnDB.inserir(questao);// insere a questão no "Banco de dados"
@@ -222,7 +245,7 @@ public class FormPerguntas extends JPanel {
         painelRadio.add(medio);
         painelRadio.add(dificil);
 
-        addComponente(painelRadio, 3, 1);
+        addComponente(painelRadio, 4, 1);
     }
 
     private class ButtonHandler implements ActionListener {
