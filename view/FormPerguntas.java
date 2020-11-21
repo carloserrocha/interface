@@ -145,7 +145,7 @@ public class FormPerguntas extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (perguntaTxt != null && resposta != null && altTxt != null && alt2Txt != null) {
+                if (perguntaTxt != null && resposta != null) {
                     JOptionPane.showMessageDialog(FormPerguntas.this,
                             "Voce esqueceu de preencher um campo, verifique e tente novamente!", AppFrame.TITULO,
                             JOptionPane.ERROR_MESSAGE);

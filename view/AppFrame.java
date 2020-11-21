@@ -13,6 +13,7 @@ public class AppFrame extends JFrame {
     private CardLayout layout;
     private JPanel cardsPanel;
 
+    private LoginProfessorPanel painelLoginProfessor;
     private InicialProfessor painelInicial;
     private ListaPerguntas painelListadePerguntas;
     private FormPerguntas painelFormPerguntas;
@@ -37,6 +38,10 @@ public class AppFrame extends JFrame {
         setVisible(true);
     }
 
+    public void mostrarLoginProfessor() {
+        layout.show(cardsPanel, LoginProfessorPanel.class.getName());
+    }
+
     public void mostrarPerguntas() {
         ListaPerguntas.recarregar();
         layout.show(cardsPanel, ListaPerguntas.class.getName());
@@ -47,11 +52,14 @@ public class AppFrame extends JFrame {
         layout.show(cardsPanel, FormPerguntas.class.getName());
     }
 
-    public void voltar() {
+    public void mostrarInicialProfessor() {
         layout.show(cardsPanel, InicialProfessor.class.getName());
     }
 
     private void criarCards() {
+        painelLoginProfessor = new LoginProfessorPanel(this);
+        cardsPanel.add(painelLoginProfessor, LoginProfessorPanel.class.getName());
+
         painelInicial = new InicialProfessor(this);
         cardsPanel.add(painelInicial, InicialProfessor.class.getName());
 
@@ -60,5 +68,6 @@ public class AppFrame extends JFrame {
 
         painelFormPerguntas = new FormPerguntas(this);
         cardsPanel.add(painelFormPerguntas, FormPerguntas.class.getName());
+
     }
 }
