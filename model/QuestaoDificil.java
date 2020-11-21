@@ -1,7 +1,5 @@
 package model;
 
-import javax.swing.JTextField;
-
 public class QuestaoDificil extends Questao {
 
     private String[] alternativas;
@@ -44,17 +42,6 @@ public class QuestaoDificil extends Questao {
         this.alternativas[3] = alternativa4;
     }
 
-    @Override
-    public void criarQuestao(JTextField perguntaTxt, JTextField resposta, JTextField altTxt, JTextField alt2Txt,
-            JTextField alt3Txt, JTextField alt4Txt) {
-        super.setPergunta(perguntaTxt.getText());
-        super.setResposta(resposta.getText());
-        this.setAlternativa(altTxt.getText());
-        this.setAlternativa2(alt2Txt.getText());
-        this.setAlternativa3(alt3Txt.getText());
-        this.setAlternativa4(alt4Txt.getText());
-        super.setDificuldade(Dificuldade.DIFICIL);
-
-    }
+    
 
 }

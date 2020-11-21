@@ -1,7 +1,5 @@
 package model;
 
-import javax.swing.JTextField;
-
 public abstract class Questao {
     private int id;
     private String pergunta;
@@ -43,18 +41,6 @@ public abstract class Questao {
     public void setDificuldade(Dificuldade dificuldade) {
         this.dificuldade = dificuldade;
     }
-
-    public void criarQuestao(JTextField perguntaTxt, JTextField resposta, JTextField altTxt, JTextField alt2Txt) {
-        criarQuestao(perguntaTxt, resposta, altTxt, alt2Txt, null, null);
-    }
-
-    public void criarQuestao(JTextField perguntaTxt, JTextField resposta, JTextField altTxt, JTextField alt2Txt,
-            JTextField alt3Txt) {
-        criarQuestao(perguntaTxt, resposta, altTxt, alt2Txt, alt3Txt, null);
-    }
-
-    public abstract void criarQuestao(JTextField perguntaTxt, JTextField resposta, JTextField altTxt,
-            JTextField alt2Txt, JTextField alt3Txt, JTextField alt4Txt);
 
     @Override
     public String toString() {

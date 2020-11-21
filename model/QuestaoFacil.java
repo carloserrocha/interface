@@ -1,7 +1,5 @@
 package model;
 
-import javax.swing.JTextField;
-
 public class QuestaoFacil extends Questao {
     private String[] alternativas;
 
@@ -27,12 +25,5 @@ public class QuestaoFacil extends Questao {
         this.alternativas[1] = alternativa2;
     }
 
-    @Override
-    public void criarQuestao(JTextField perguntaTxt, JTextField resposta, JTextField altTxt, JTextField alt2Txt) {
-        super.setPergunta(perguntaTxt.getText());
-        super.setResposta(resposta.getText());
-        this.setAlternativa(altTxt.getText());
-        this.setAlternativa2(alt2Txt.getText());
-        super.setDificuldade(Dificuldade.FACIL);
-    }
+   
 }
