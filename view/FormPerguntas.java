@@ -61,6 +61,7 @@ public class FormPerguntas extends JPanel {
 
         setLayout(layout);
         // Zerar campos do formulario.
+<<<<<<< Updated upstream
         /*
          * addComponentListener(new ComponentAdapter() {
          * 
@@ -84,6 +85,41 @@ public class FormPerguntas extends JPanel {
          * 
          * } });
          */
+=======
+        addComponentListener(new ComponentAdapter() {
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+                if (questao == null) {
+                    idTxt.setText("");
+                    perguntaTxt.setText("");
+                    resposta.setText("");
+                    facil.setSelected(true);
+                } else {
+                    idTxt.setText(Integer.toString(questao.getId()));
+                    perguntaTxt.setText(questao.getPergunta());
+                    resposta.setText(questao.getResposta());
+                }
+                if (questao.getDificuldade() == "Fácil") {
+                    facil.setSelected(true);
+                    panelAltern.setAlternativa("", 0);
+                    panelAltern.setAlternativa("", 1);
+                } else if (questao.getDificuldade() == "Médio") {
+                    medio.setSelected(true);
+                    panelAltern.setAlternativa("", 0);
+                    panelAltern.setAlternativa("", 1);
+                    panelAltern.setAlternativa("", 2);
+                } else {
+                    dificil.setSelected(true);
+                    panelAltern.setAlternativa("", 0);
+                    panelAltern.setAlternativa("", 1);
+                    panelAltern.setAlternativa("", 2);
+                    panelAltern.setAlternativa("", 3);
+                }
+
+            }
+        });
+>>>>>>> Stashed changes
 
         criarForm();
     }
