@@ -76,8 +76,12 @@ public abstract class Questao {
         return e;
     }
 
-    public String getDificuldade() {
+    public String getDescricao() {
         return this.dificuldade.getDescricao();
+    }
+
+    public Dificuldade getDificuldade() {
+        return this.dificuldade;
     }
 
     public void setDificuldade(Dificuldade dificuldade) {

@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -76,11 +77,11 @@ public class FormPerguntas extends JPanel {
                     perguntaTxt.setText(questao.getPergunta());
                     resposta.setText(questao.getResposta());
                 }
-                if (questao.getDificuldade() == "Fácil") {
+                if (questao.getDificuldade() == Dificuldade.FACIL) {
                     facil.setSelected(true);
                     panelAltern.setAlternativa("", 0);
                     panelAltern.setAlternativa("", 1);
-                } else if (questao.getDificuldade() == "Médio") {
+                } else if (questao.getDificuldade() == Dificuldade.MEDIO) {
                     medio.setSelected(true);
                     panelAltern.setAlternativa("", 0);
                     panelAltern.setAlternativa("", 1);
@@ -188,7 +189,7 @@ public class FormPerguntas extends JPanel {
                     criarQuestaoDificil();
                 }
                 if (idTxt.getText().isBlank()) {
-
+                    MnDB.inserir(questao);
                     JOptionPane.showMessageDialog(FormPerguntas.this, "Questão criada com sucesso!", AppFrame.TITULO,
                             JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
                 } else {
@@ -215,6 +216,8 @@ public class FormPerguntas extends JPanel {
             questao.setDica(dicaTxt.getText());
             questao.setAlternativa(panelAltern.getAlternativa(0), 0);
             questao.setAlternativa(panelAltern.getAlternativa(1), 1);
+            questao.setAlternativa(panelAltern.getAlternativa(2), 2);
+            questao.setAlternativa(panelAltern.getAlternativa(3), 3);
             questao.setDificuldade(Dificuldade.FACIL);
         } else {
             JOptionPane.showMessageDialog(FormPerguntas.this,
@@ -233,6 +236,7 @@ public class FormPerguntas extends JPanel {
             questao.setAlternativa(panelAltern.getAlternativa(0), 0);
             questao.setAlternativa(panelAltern.getAlternativa(1), 1);
             questao.setAlternativa(panelAltern.getAlternativa(2), 2);
+            questao.setAlternativa(panelAltern.getAlternativa(3), 3);
             questao.setDificuldade(Dificuldade.MEDIO);
         } else {
             JOptionPane.showMessageDialog(FormPerguntas.this,

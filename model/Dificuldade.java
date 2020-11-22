@@ -1,7 +1,7 @@
 package model;
 
 public enum Dificuldade {
-    FACIL("Fácil"), MEDIO("Médio"), DIFICIL("Dificil");
+    FACIL("Fácil"), MEDIO("Médio"), DIFICIL("Difícil");
 
     private String descricao;
 
