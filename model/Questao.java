@@ -4,14 +4,12 @@ public class Questao {
     private int id;
     private String pergunta;
     private String resposta;
+    private String dica;
     private Dificuldade dificuldade;
-<<<<<<< Updated upstream
-=======
     private String alternativa;
     private String alternativa2;
     private String alternativa3;
     private String alternativa4;
->>>>>>> Stashed changes
 
     public Questao() {
 
@@ -41,9 +39,6 @@ public class Questao {
         this.resposta = resposta;
     }
 
-<<<<<<< Updated upstream
-    public String getDificuldade() {
-=======
     public void setDica(String dica) {
         this.dica = dica;
     }
@@ -83,24 +78,13 @@ public class Questao {
     public String getAlternativa4() {
         return alternativa4;
     }
-    /*
-     * public void setAlternativa(String[] alternativa, int i) { if (i == 0) {
-     * this.alternativas[0] = alternativa[0]; } else if (i == 1) {
-     * this.alternativas[1] = alternativa[1]; } else if (i == 2) {
-     * this.alternativas[2] = alternativa[2]; } else if (i == 3) {
-     * this.alternativas[3] = alternativa[3]; } }
-     * 
-     * public String getAlternativas(int i) { String e = null; switch (i) { case 0:
-     * e = alternativas[i]; case 1: e = alternativas[i]; case 2: e =
-     * alternativas[i]; case 3: e = alternativas[i]; case 4: e = alternativas[i];
-     * default: e = null; }
-     * 
-     * return e; }
-     */
 
     public String getDescricao() {
->>>>>>> Stashed changes
         return this.dificuldade.getDescricao();
+    }
+
+    public Dificuldade getDificuldade() {
+        return this.dificuldade;
     }
 
     public void setDificuldade(Dificuldade dificuldade) {

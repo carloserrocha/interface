@@ -37,4 +37,8 @@ public abstract class QuestaoPanel extends JPanel {
 
 	}
 
+	public abstract String getAlternativa(int i);
+
+	public abstract void setAlternativa(String s, int i);
+
 }

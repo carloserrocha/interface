@@ -49,7 +49,7 @@ public class PerguntaTableModel extends AbstractTableModel {
                     value = questao.getPergunta();
                     break;
                 case 2:
-                    value = questao.getDificuldade();
+                    value = questao.getDescricao();
                     break;
                 default:
                     System.err.printf("[ERRO] Indice de coluna inválido: %d\n", columnIndex);
