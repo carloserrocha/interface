@@ -26,7 +26,7 @@ public class LoginProfessorPanel extends JPanel {
     private JTextField loginField;
     private JPasswordField password;
     private LoginProfessor c;
-    private final char[] VERIFICACAO = {'1', '2', '3', '4', '5'};
+    private final char[] VERIFICACAO = { '1', '2', '3', '4', '5' };
 
     public LoginProfessorPanel(AppFrame appFrame) {
         this.frame = appFrame;
@@ -59,7 +59,7 @@ public class LoginProfessorPanel extends JPanel {
                 frame.mostrarInicialProfessor();
             }
         });
-        addComponente(login, 2, 0);
+        addComponente(login, 2, 1);
 
         sair = new JButton("Sair");
         sair.addActionListener(new ActionListener() {
@@ -69,7 +69,7 @@ public class LoginProfessorPanel extends JPanel {
             }
         });
 
-        addComponente(sair, 2, 1);
+        addComponente(sair, 2, 0);
 
     }
 

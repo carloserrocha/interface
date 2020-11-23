@@ -93,12 +93,30 @@ public class FormPerguntas extends JPanel {
                 if (questao == null) {
                     idTxt.setText("");
                     perguntaTxt.setText("");
+                    dicaTxt.setText("");
                     resposta.setText("");
-                    facil.setSelected(true);
+                    if (facil.isSelected() == true) {
+                        facil.setSelected(true);
+                        panelAltern.setAlternativa("", 0);
+                        panelAltern.setAlternativa("", 1);
+                    } else if (medio.isSelected() == true) {
+                        medio.setSelected(true);
+                        panelAltern.setAlternativa("", 0);
+                        panelAltern.setAlternativa("", 1);
+                        panelAltern.setAlternativa("", 2);
+                    } else {
+                        dificil.setSelected(true);
+                        panelAltern.setAlternativa("", 0);
+                        panelAltern.setAlternativa("", 1);
+                        panelAltern.setAlternativa("", 2);
+                        panelAltern.setAlternativa("", 3);
+                    }
                 } else {
                     idTxt.setText(Integer.toString(questao.getId()));
                     perguntaTxt.setText(questao.getPergunta());
+                    dicaTxt.setText(questao.getDica());
                     resposta.setText(questao.getResposta());
+<<<<<<< Updated upstream
                 }
                 if (questao.getDificuldade() == "Fácil") {
                     facil.setSelected(true);
@@ -115,6 +133,23 @@ public class FormPerguntas extends JPanel {
                     panelAltern.setAlternativa("", 1);
                     panelAltern.setAlternativa("", 2);
                     panelAltern.setAlternativa("", 3);
+=======
+                    if (questao.getDificuldade() == Dificuldade.FACIL) {
+                        panelAltern.setAlternativa(questao.getAlternativa(), 0);
+                        panelAltern.setAlternativa(questao.getAlternativa2(), 1);
+                    } else if (questao.getDificuldade() == Dificuldade.MEDIO) {
+                        panelAltern.setAlternativa(questao.getAlternativa(), 0);
+                        panelAltern.setAlternativa(questao.getAlternativa2(), 1);
+                        panelAltern.setAlternativa(questao.getAlternativa3(), 2);
+                    } else {
+                        dificil.setSelected(true);
+                        panelAltern.setAlternativa(questao.getAlternativa(), 0);
+                        panelAltern.setAlternativa(questao.getAlternativa2(), 1);
+                        panelAltern.setAlternativa(questao.getAlternativa3(), 2);
+                        panelAltern.setAlternativa(questao.getAlternativa4(), 3);
+                    }
+
+>>>>>>> Stashed changes
                 }
 
             }
@@ -175,16 +210,19 @@ public class FormPerguntas extends JPanel {
         if (facil.isSelected() == true) {
             panelAltern = new FacilQuestaoPanel(this);
             cardsPanelAltern.add(panelAltern, FacilQuestaoPanel.class.getName());
+
         }
 
         if (medio.isSelected() == true) {
             panelAltern = new MediaQuestaoPanel(this);
             cardsPanelAltern.add(panelAltern, MediaQuestaoPanel.class.getName());
+
         }
         if (dificil.isSelected() == true) {
             panelAltern = new DificilQuestaoPanel(this);
             cardsPanelAltern.add(panelAltern, DificilQuestaoPanel.class.getName());
         }
+
     }
 
     private void criarBtn() {
@@ -230,6 +268,67 @@ public class FormPerguntas extends JPanel {
         });
     }
 
+<<<<<<< Updated upstream
+=======
+    public void criarQuestaoFacil() {
+        questao = new Questao();
+        if ((perguntaTxt.getText().length() > 0) && (resposta.getText().length() > 0)
+                && (dicaTxt.getText().length() > 0) && (panelAltern.getAlternativa(0).length() > 0)
+                && (panelAltern.getAlternativa(1).length() > 0)) {
+            questao.setPergunta(perguntaTxt.getText());
+            questao.setResposta(resposta.getText());
+            questao.setDica(dicaTxt.getText());
+            questao.setAlternativa(panelAltern.getAlternativa(0));
+            questao.setAlternativa2(panelAltern.getAlternativa(1));
+            questao.setDificuldade(Dificuldade.FACIL);
+        } else {
+            JOptionPane.showMessageDialog(FormPerguntas.this,
+                    "Voce esqueceu de preencher um campo, verifique e tente novamente!", AppFrame.TITULO,
+                    JOptionPane.ERROR_MESSAGE);// mensagem de erro par alertar o usuário que tem campos vazios
+        }
+    }
+
+    public void criarQuestaoMedia() {
+        questao = new Questao();
+        if ((perguntaTxt.getText().length() > 0) && (resposta.getText().length() > 0)
+                && (dicaTxt.getText().length() > 0) && (panelAltern.getAlternativa(0).length() > 0)
+                && (panelAltern.getAlternativa(1).length() > 0) && (panelAltern.getAlternativa(2).length() > 0)) {
+            questao.setPergunta(perguntaTxt.getText());
+            questao.setResposta(resposta.getText());
+            questao.setDica(dicaTxt.getText());
+            questao.setAlternativa(panelAltern.getAlternativa(0));
+            questao.setAlternativa2(panelAltern.getAlternativa(1));
+            questao.setAlternativa3(panelAltern.getAlternativa(2));
+            questao.setDificuldade(Dificuldade.MEDIO);
+        } else {
+            JOptionPane.showMessageDialog(FormPerguntas.this,
+                    "Voce esqueceu de preencher um campo, verifique e tente novamente!", AppFrame.TITULO,
+                    JOptionPane.ERROR_MESSAGE);// mensagem de erro par alertar o usuário que tem campos vazios
+        }
+    }
+
+    public void criarQuestaoDificil() {
+        questao = new Questao();
+        if ((perguntaTxt.getText().length() > 0) && (resposta.getText().length() > 0)
+                && (dicaTxt.getText().length() > 0) && (panelAltern.getAlternativa(0).length() > 0)
+                && (panelAltern.getAlternativa(1).length() > 0) && (panelAltern.getAlternativa(2).length() > 0)
+                && (panelAltern.getAlternativa(3).length() > 0)) {
+            questao.setPergunta(perguntaTxt.getText());
+            questao.setResposta(resposta.getText());
+            questao.setDica(dicaTxt.getText());
+            questao.setAlternativa(panelAltern.getAlternativa(0));
+            questao.setAlternativa2(panelAltern.getAlternativa(1));
+            questao.setAlternativa3(panelAltern.getAlternativa(2));
+            questao.setAlternativa4(panelAltern.getAlternativa(3));
+            questao.setDificuldade(Dificuldade.DIFICIL);
+        } else {
+            JOptionPane.showMessageDialog(FormPerguntas.this,
+                    "Voce esqueceu de preencher um campo, verifique e tente novamente!", AppFrame.TITULO,
+                    JOptionPane.ERROR_MESSAGE);// mensagem de erro par alertar o usuário que tem campos vazios
+        }
+    }
+
+>>>>>>> Stashed changes
     private void cancelBtn() {
         cancelarBtn = new JButton("Cancelar");
         cancelarBtn.addActionListener(new ActionListener() {
@@ -291,6 +390,7 @@ public class FormPerguntas extends JPanel {
             this.form = f;
         }
 
+<<<<<<< Updated upstream
         public void actionPerformed(ActionEvent e) {
             if (facil.isSelected() == true) {
                 panelAltern = new FacilQuestaoPanel(form);
@@ -307,6 +407,21 @@ public class FormPerguntas extends JPanel {
                 panelAltern = new DificilQuestaoPanel(form);
                 panelAltern.painelAltenativas();
                 layoutAltern.show(cardsPanelAltern, FormPerguntas.class.getName());
+=======
+        @Override
+        public void itemStateChanged(ItemEvent e) {
+            alterCards();
+            if (facil.isSelected() == true) {
+                mostrarAlternativas();
+                layoutAltern.show(cardsPanelAltern, FacilQuestaoPanel.class.getName());
+
+            } else if (medio.isSelected() == true) {
+                mostrarAlternativas();
+                layoutAltern.show(cardsPanelAltern, MediaQuestaoPanel.class.getName());
+            } else if (dificil.isSelected() == true) {
+                mostrarAlternativas();
+                layoutAltern.show(cardsPanelAltern, DificilQuestaoPanel.class.getName());
+>>>>>>> Stashed changes
             }
         }
     }

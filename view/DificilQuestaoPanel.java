@@ -36,4 +36,40 @@ public class DificilQuestaoPanel extends QuestaoPanel {
     }
 
 
+<<<<<<< Updated upstream
+=======
+	public void setAlternativa(String alternativa, int i) {
+		if (i == 0) {
+			this.alternativa[0].setText(alternativa);
+		} else if (i == 1) {
+			this.alternativa[1].setText(alternativa);
+		} else if (i == 2) {
+			this.alternativa[2].setText(alternativa);
+		} else {
+			this.alternativa[3].setText(alternativa);
+		}
+	}
+
+	public String getAlternativa(int i) {
+		String e = null;
+		switch (i) {
+			case 0:
+				e = alternativa[0].getText();
+				break;
+			case 1:
+				e = alternativa[1].getText();
+				break;
+			case 2:
+				e = alternativa[2].getText();
+				break;
+			case 3:
+				e = alternativa[3].getText();
+				break;
+			default:
+				return null;
+		}
+
+		return e;
+	}
+>>>>>>> Stashed changes
 }
