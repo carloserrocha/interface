@@ -70,6 +70,7 @@ public class FormPerguntas extends JPanel {
                 if (questao == null) {
                     idTxt.setText("");
                     perguntaTxt.setText("");
+                    idTxt.setText("");
                     resposta.setText("");
 
                     if (facil.isSelected() == true) {
@@ -279,8 +280,8 @@ public class FormPerguntas extends JPanel {
             questao.setAlternativa3(panelAltern.getAlternativa(2));
             questao.setAlternativa4(panelAltern.getAlternativa(3));
         } else {
-            
-                    JOptionPane.showMessageDialog(FormPerguntas.this,
+
+            JOptionPane.showMessageDialog(FormPerguntas.this,
                     "Voce esqueceu de preencher um campo, verifique e tente novamente!", AppFrame.TITULO,
                     JOptionPane.ERROR_MESSAGE);// mensagem de erro par alertar o usuário que tem campos vazios
         }
