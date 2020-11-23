@@ -174,7 +174,8 @@ public class FormPerguntas extends JPanel {
         addComponente(btnPanel, 10, 1, 2, 1);
 
     }
-
+ 
+    
     private void saveBtn() {
         salvarBtn = new JButton("Salvar");
         salvarBtn.addActionListener(new ActionListener() {
