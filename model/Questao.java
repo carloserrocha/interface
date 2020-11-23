@@ -110,4 +110,8 @@ public class Questao {
         Questao outraQuestao = (Questao) obj;
         return id == outraQuestao.id;
     }
+
 }// fim da classe Questão
+    
+
+      
