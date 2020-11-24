@@ -70,7 +70,7 @@ public class FormPerguntas extends JPanel {
                 if (questao == null) {
                     idTxt.setText("");
                     perguntaTxt.setText("");
-                    idTxt.setText("");
+                    dicaTxt.setText("");
                     resposta.setText("");
 
                     if (facil.isSelected() == true) {
@@ -105,7 +105,7 @@ public class FormPerguntas extends JPanel {
                         panelAltern.setAlternativa(questao.getAlternativa(), 0);
                         panelAltern.setAlternativa(questao.getAlternativa2(), 1);
                         panelAltern.setAlternativa(questao.getAlternativa3(), 2);
-                    } else {
+                    } else if (questao.getDificuldade() == Dificuldade.DIFICIL) {
                         dificil.setSelected(true);
                         mostrarAlternativas();
                         panelAltern.setAlternativa(questao.getAlternativa(), 0);
@@ -161,6 +161,7 @@ public class FormPerguntas extends JPanel {
         addComponente(cardsPanelAltern, 5, 0, 4, 4);
         facil.setSelected(true);
         criarBtn();
+        alterCards();
     }
 
     public void mostrarAlternativas() {
@@ -171,13 +172,10 @@ public class FormPerguntas extends JPanel {
         if (facil.isSelected() == true) {
             panelAltern = new FacilQuestaoPanel();
             cardsPanelAltern.add(panelAltern, FacilQuestaoPanel.class.getName());
-        }
-
-        if (medio.isSelected() == true) {
+        } else if (medio.isSelected() == true) {
             panelAltern = new MediaQuestaoPanel();
             cardsPanelAltern.add(panelAltern, MediaQuestaoPanel.class.getName());
-        }
-        if (dificil.isSelected() == true) {
+        } else if (dificil.isSelected() == true) {
             panelAltern = new DificilQuestaoPanel();
             cardsPanelAltern.add(panelAltern, DificilQuestaoPanel.class.getName());
         }
@@ -279,6 +277,7 @@ public class FormPerguntas extends JPanel {
             questao.setAlternativa2(panelAltern.getAlternativa(1));
             questao.setAlternativa3(panelAltern.getAlternativa(2));
             questao.setAlternativa4(panelAltern.getAlternativa(3));
+            questao.setDificuldade(Dificuldade.DIFICIL);
         } else {
 
             JOptionPane.showMessageDialog(FormPerguntas.this,
@@ -347,16 +346,13 @@ public class FormPerguntas extends JPanel {
         @Override
         public void itemStateChanged(ItemEvent e) {
             if (facil.isSelected() == true) {
-                alterCards();
                 mostrarAlternativas();
                 layoutAltern.show(cardsPanelAltern, FacilQuestaoPanel.class.getName());
 
             } else if (medio.isSelected() == true) {
-                alterCards();
                 mostrarAlternativas();
                 layoutAltern.show(cardsPanelAltern, MediaQuestaoPanel.class.getName());
             } else if (dificil.isSelected() == true) {
-                alterCards();
                 mostrarAlternativas();
                 layoutAltern.show(cardsPanelAltern, DificilQuestaoPanel.class.getName());
             }

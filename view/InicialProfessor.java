@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 public class InicialProfessor extends JPanel {
     private AppFrame frame;
     private JButton perguntasBtn;
+    private LoginProfessorPanel p;
 
     public InicialProfessor(AppFrame appFrame) {
         this.frame = appFrame;
@@ -32,7 +33,7 @@ public class InicialProfessor extends JPanel {
         sairBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                frame.mostrarLoginProfessor();
             }
         });
         add(sairBtn);// Botão Sair

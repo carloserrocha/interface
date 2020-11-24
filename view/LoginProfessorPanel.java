@@ -14,19 +14,17 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.plaf.InsetsUIResource;
 
-import model.LoginProfessor;
-
 public class LoginProfessorPanel extends JPanel {
     private static final Insets FIELD_INSETS = new InsetsUIResource(5, 10, 0, 0);
     private AppFrame frame;
-    private JButton login;
+    private JButton loginBtn;
     private JButton sair;
     private GridBagLayout layout;
     private GridBagConstraints constraints;
     private JTextField loginField;
     private JPasswordField password;
-    private LoginProfessor c;
-    private final char[] VERIFICACAO = {'1', '2', '3', '4', '5'};
+    private static final String LOGIN = "Admin";
+    private static final String SENHA = "12345";
 
     public LoginProfessorPanel(AppFrame appFrame) {
         this.frame = appFrame;
@@ -51,25 +49,45 @@ public class LoginProfessorPanel extends JPanel {
         addComponente(password, 1, 1);
     }
 
+    public void limparLogin() {
+        loginField.setText("");
+        password.setText("");
+    }
+
     public void criarBotoes() {
-        login = new JButton("Login");// Criar Pergunta
-        login.addActionListener(new ActionListener() {
+        loginBtn = new JButton("Login");
+
+        loginBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // String userpasswd = new String(password.getPassword());
+                // String userlogin = loginField.getText();
+                // if (userlogin.equals(LOGIN)) {
+                // if (userpasswd.equals(SENHA)) {
+                // frame.mostrarInicialProfessor();
+                // limparLogin();
+                // } else {
+                // JOptionPane.showMessageDialog(LoginProfessorPanel.this, "Senha incorreta!");
+                // limparLogin();
+                // }
+                // } else {
+                // JOptionPane.showMessageDialog(LoginProfessorPanel.this, "Login incorreto!");
+                // limparLogin();
+                // }
                 frame.mostrarInicialProfessor();
             }
         });
-        addComponente(login, 2, 0);
+        addComponente(loginBtn, 2, 1);
 
         sair = new JButton("Sair");
         sair.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.mostrarLoginProfessor();
+                System.exit(0);
             }
         });
 
-        addComponente(sair, 2, 1);
+        addComponente(sair, 2, 0);
 
     }
 
