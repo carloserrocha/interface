@@ -48,12 +48,17 @@ public class FormPerguntas extends JPanel {
 
     private Questao questao;
     private QuestaoPanel panelAltern;
+    private QuestaoPanel facilPanel;
+    private QuestaoPanel medioPanel;
+    private QuestaoPanel dificilPanel;
 
     private CardLayout layoutAltern;
     private JPanel cardsPanelAltern;
 
     public FormPerguntas(AppFrame appFrame) {
         this.frame = appFrame;
+        panelAltern = new FacilQuestaoPanel();
+        System.out.printf("Linha 61| Inicio | %b", debug());
 
         layout = new GridBagLayout();
         constraints = new GridBagConstraints();
@@ -62,7 +67,6 @@ public class FormPerguntas extends JPanel {
 
         setLayout(layout);
         // Zerar campos do formulario.
-
         addComponentListener(new ComponentAdapter() {
 
             @Override
@@ -96,22 +100,28 @@ public class FormPerguntas extends JPanel {
                     resposta.setText(questao.getResposta());
                     if (questao.getDificuldade() == Dificuldade.FACIL) {
                         facil.setSelected(true);
+                        System.out.printf("Linha 103 %b", debug());
                         mostrarAlternativas();
-                        panelAltern.setAlternativa(questao.getAlternativa(), 0);
-                        panelAltern.setAlternativa(questao.getAlternativa2(), 1);
+
+                        facilPanel.setAlternativa(questao.getAlternativa(), 0);
+                        facilPanel.setAlternativa(questao.getAlternativa2(), 1);
                     } else if (questao.getDificuldade() == Dificuldade.MEDIO) {
                         medio.setSelected(true);
+                        System.out.printf("Linha 110 %b", debug());
                         mostrarAlternativas();
-                        panelAltern.setAlternativa(questao.getAlternativa(), 0);
-                        panelAltern.setAlternativa(questao.getAlternativa2(), 1);
-                        panelAltern.setAlternativa(questao.getAlternativa3(), 2);
+
+                        medioPanel.setAlternativa(questao.getAlternativa(), 0);
+                        medioPanel.setAlternativa(questao.getAlternativa2(), 1);
+                        medioPanel.setAlternativa(questao.getAlternativa3(), 2);
                     } else if (questao.getDificuldade() == Dificuldade.DIFICIL) {
                         dificil.setSelected(true);
+                        System.out.printf("linha 117 %b", debug());
                         mostrarAlternativas();
-                        panelAltern.setAlternativa(questao.getAlternativa(), 0);
-                        panelAltern.setAlternativa(questao.getAlternativa2(), 1);
-                        panelAltern.setAlternativa(questao.getAlternativa3(), 2);
-                        panelAltern.setAlternativa(questao.getAlternativa4(), 3);
+
+                        dificilPanel.setAlternativa(questao.getAlternativa(), 0);
+                        dificilPanel.setAlternativa(questao.getAlternativa2(), 1);
+                        dificilPanel.setAlternativa(questao.getAlternativa3(), 2);
+                        dificilPanel.setAlternativa(questao.getAlternativa4(), 3);
                     }
 
                 }
@@ -124,6 +134,10 @@ public class FormPerguntas extends JPanel {
 
     public void setQuestao(Questao questao) {
         this.questao = questao;
+    }
+
+    public boolean debug() {
+        return panelAltern == null;
     }
 
     private void criarForm() {
@@ -159,25 +173,32 @@ public class FormPerguntas extends JPanel {
         cardsPanelAltern = new JPanel();
         cardsPanelAltern.setLayout(layoutAltern);
         addComponente(cardsPanelAltern, 5, 0, 4, 4);
+        criarCards();
         facil.setSelected(true);
         criarBtn();
-        alterCards();
     }
 
     public void mostrarAlternativas() {
         panelAltern.painelAltenativas();
+        System.out.printf("%s", panelAltern.getName());
+    }
+
+    public void criarCards() {
+        facilPanel = new FacilQuestaoPanel();
+        medioPanel = new MediaQuestaoPanel();
+        dificilPanel = new DificilQuestaoPanel();
+        cardsPanelAltern.add(facilPanel, FacilQuestaoPanel.class.getName());
+        cardsPanelAltern.add(medioPanel, MediaQuestaoPanel.class.getName());
+        cardsPanelAltern.add(dificilPanel, DificilQuestaoPanel.class.getName());
     }
 
     public void alterCards() {
         if (facil.isSelected() == true) {
-            panelAltern = new FacilQuestaoPanel();
-            cardsPanelAltern.add(panelAltern, FacilQuestaoPanel.class.getName());
+            panelAltern = facilPanel;
         } else if (medio.isSelected() == true) {
-            panelAltern = new MediaQuestaoPanel();
-            cardsPanelAltern.add(panelAltern, MediaQuestaoPanel.class.getName());
+            panelAltern = medioPanel;
         } else if (dificil.isSelected() == true) {
-            panelAltern = new DificilQuestaoPanel();
-            cardsPanelAltern.add(panelAltern, DificilQuestaoPanel.class.getName());
+            panelAltern = dificilPanel;
         }
     }
 
@@ -190,7 +211,7 @@ public class FormPerguntas extends JPanel {
         btnPanel.add(salvarBtn);
         cancelBtn();
         btnPanel.add(cancelarBtn);
-
+        criarCards();
         addComponente(btnPanel, 10, 1, 2, 1);
 
     }
@@ -212,6 +233,7 @@ public class FormPerguntas extends JPanel {
                     MnDB.inserir(questao);
                     JOptionPane.showMessageDialog(FormPerguntas.this, "Questão criada com sucesso!", AppFrame.TITULO,
                             JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
+                    criarCards();
                 } else {
                     if (!idTxt.getText().isBlank()) {
                         questao.setId(Integer.parseInt(idTxt.getText()));
@@ -346,13 +368,16 @@ public class FormPerguntas extends JPanel {
         @Override
         public void itemStateChanged(ItemEvent e) {
             if (facil.isSelected() == true) {
+                alterCards();
                 mostrarAlternativas();
                 layoutAltern.show(cardsPanelAltern, FacilQuestaoPanel.class.getName());
 
             } else if (medio.isSelected() == true) {
+                alterCards();
                 mostrarAlternativas();
                 layoutAltern.show(cardsPanelAltern, MediaQuestaoPanel.class.getName());
             } else if (dificil.isSelected() == true) {
+                alterCards();
                 mostrarAlternativas();
                 layoutAltern.show(cardsPanelAltern, DificilQuestaoPanel.class.getName());
             }
