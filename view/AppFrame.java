@@ -17,7 +17,6 @@ public class AppFrame extends JFrame {
     private InicialProfessor painelInicial;
     private ListaPerguntas painelListadePerguntas;
     private FormPerguntas painelFormPerguntas;
-    
 
     public AppFrame() {
         super(TITULO);
@@ -34,7 +33,7 @@ public class AppFrame extends JFrame {
     }
 
     public void mostrar() {
-        pack();
+        cardsPanel.setSize(800, 600);
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -69,7 +68,6 @@ public class AppFrame extends JFrame {
 
         painelFormPerguntas = new FormPerguntas(this);
         cardsPanel.add(painelFormPerguntas, FormPerguntas.class.getName());
-
 
     }
 }

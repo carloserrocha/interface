@@ -97,6 +97,24 @@ public class FormPerguntas extends JPanel {
 					perguntaTxt.setText(questao.getPergunta());
 					dicaTxt.setText(questao.getDica());
 					resposta.setText(questao.getResposta());
+
+					if (questao.getDificuldade() == Dificuldade.FACIL) {
+						facil.setSelected(true);
+						panelAltern.setAlternativa(questao.getAlternativa(), 0);
+						panelAltern.setAlternativa(questao.getAlternativa2(), 1);
+
+					} else if (questao.getDificuldade() == Dificuldade.MEDIO) {
+						medio.setSelected(true);
+						panelAltern.setAlternativa(questao.getAlternativa(), 0);
+						panelAltern.setAlternativa(questao.getAlternativa2(), 1);
+						panelAltern.setAlternativa(questao.getAlternativa3(), 2);
+					} else if (questao.getDificuldade() == Dificuldade.DIFICIL) {
+						dificil.setSelected(true);
+						panelAltern.setAlternativa(questao.getAlternativa(), 0);
+						panelAltern.setAlternativa(questao.getAlternativa2(), 1);
+						panelAltern.setAlternativa(questao.getAlternativa3(), 2);
+						panelAltern.setAlternativa(questao.getAlternativa4(), 3);
+					}
 				}
 
 			}
