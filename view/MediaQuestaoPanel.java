@@ -12,12 +12,11 @@ public class MediaQuestaoPanel extends QuestaoPanel {
 	public MediaQuestaoPanel() {
 		layout = new GridBagLayout();
 		constraints = new GridBagConstraints();
-
+		setLayout(layout);
 	}
 
 	@Override
 	public void painelAltenativas() {
-		setLayout(layout);
 		alternativa = new JTextField[3];
 		JLabel rotulo;
 		for (int i = 0; i <= 2; i++) {
@@ -56,8 +55,8 @@ public class MediaQuestaoPanel extends QuestaoPanel {
 				e = alternativa[i].getText();
 				break;
 			default:
-			    System.out.printf("[ERRO] Painel Médio");
-			    break;
+				System.out.printf("[ERRO] Painel Médio");
+				break;
 		}
 
 		return e;

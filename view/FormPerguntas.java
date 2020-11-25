@@ -148,15 +148,18 @@ public class FormPerguntas extends JPanel {
 		criarBtn();
 	}
 
+	// Mudar para criarAlternativas()
 	public void mostrarAlternativas() {
-		panelAltern.painelAltenativas();
-		System.out.printf("%s linha 151 |", panelAltern.getName());
+		facilPanel.painelAltenativas();
+		medioPanel.painelAltenativas();
+		dificilPanel.painelAltenativas();
 	}
 
 	public void criarCards() {
 		facilPanel = new FacilQuestaoPanel();
 		medioPanel = new MediaQuestaoPanel();
 		dificilPanel = new DificilQuestaoPanel();
+		mostrarAlternativas();
 		cardsPanelAltern.add(facilPanel, FacilQuestaoPanel.class.getName());
 		cardsPanelAltern.add(medioPanel, MediaQuestaoPanel.class.getName());
 		cardsPanelAltern.add(dificilPanel, DificilQuestaoPanel.class.getName());
@@ -201,35 +204,24 @@ public class FormPerguntas extends JPanel {
 				} else if (dificil.isSelected()) {
 					criarQuestaoDificil();
 				}
-
 				if (idTxt.getText().isBlank()) {
 					MnDB.inserir(questao);
 					JOptionPane.showMessageDialog(FormPerguntas.this, "Questão criada com sucesso!", AppFrame.TITULO,
 							JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
 					criarCards();
-
 				} else if (!idTxt.getText().isBlank()) {
 					questao.setId(Integer.parseInt(idTxt.getText()));
 					MnDB.atualizar(questao);// atualiza a questão no "Banco de dados"
 					JOptionPane.showMessageDialog(FormPerguntas.this, "Questão Editada com sucesso!", AppFrame.TITULO,
 							JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
-
 				}
 				frame.mostrarPerguntas();// volta para a lista de perguntas
-
 			}
 		});
 
 	}
 
 	public void criarQuestaoFacil() {
-		System.out.print("criarQuestaoFacil() \n");
-		System.out.printf("Valor campo pergunta: %s%n", perguntaTxt.getText());
-		System.out.printf("Valor campo resposta: %s%n", resposta.getText());
-		System.out.printf("Valor campo dica: %s%n", dicaTxt.getText());
-		System.out.printf("Valor campo Alternativa1: %s%n", panelAltern.getAlternativa(0));
-		System.out.printf("Valor campo Alternativa2: %s%n", panelAltern.getAlternativa(1));
-
 		if ((perguntaTxt.getText().length() > 0) && (resposta.getText().length() > 0)
 				&& (dicaTxt.getText().length() > 0) && (panelAltern.getAlternativa(0).length() > 0)
 				&& (panelAltern.getAlternativa(1).length() > 0)) {
@@ -239,7 +231,6 @@ public class FormPerguntas extends JPanel {
 			questao.setAlternativa(panelAltern.getAlternativa(0));
 			questao.setAlternativa2(panelAltern.getAlternativa(1));
 			questao.setDificuldade(Dificuldade.FACIL);
-			System.out.printf("Valor campo Dificuldade: %s%n", questao.getDescricao());
 		} else {
 			JOptionPane.showMessageDialog(FormPerguntas.this,
 					"Voce esqueceu de preencher um campo, verifique e tente novamente!", AppFrame.TITULO,
@@ -248,13 +239,6 @@ public class FormPerguntas extends JPanel {
 	}
 
 	public void criarQuestaoMedia() {
-		System.out.print("criarQuestaoMedia() \n");
-		System.out.printf("Valor campo pergunta: %s%n", perguntaTxt.getText());
-		System.out.printf("Valor campo resposta: %s%n", resposta.getText());
-		System.out.printf("Valor campo dica: %s%n", dicaTxt.getText());
-		System.out.printf("Valor campo Alternativa1: %s%n", panelAltern.getAlternativa(0));
-		System.out.printf("Valor campo Alternativa2: %s%n", panelAltern.getAlternativa(1));
-		System.out.printf("Valor campo Alternativa3: %s%n", panelAltern.getAlternativa(2));
 		if ((perguntaTxt.getText().length() > 0) && (resposta.getText().length() > 0)
 				&& (dicaTxt.getText().length() > 0) && (panelAltern.getAlternativa(0).length() > 0)
 				&& (panelAltern.getAlternativa(1).length() > 0) && (panelAltern.getAlternativa(2).length() > 0)) {
@@ -265,7 +249,6 @@ public class FormPerguntas extends JPanel {
 			questao.setAlternativa2(panelAltern.getAlternativa(1));
 			questao.setAlternativa3(panelAltern.getAlternativa(2));
 			questao.setDificuldade(Dificuldade.MEDIO);
-			System.out.printf("Valor campo Dificuldade: %s%n", questao.getDescricao());
 		} else {
 			JOptionPane.showMessageDialog(FormPerguntas.this,
 					"Voce esqueceu de preencher um campo, verifique e tente novamente!", AppFrame.TITULO,
@@ -274,14 +257,6 @@ public class FormPerguntas extends JPanel {
 	}
 
 	public void criarQuestaoDificil() {
-		System.out.print("criarQuestaoDificil() \n");
-		System.out.printf("Valor campo pergunta: %s%n", perguntaTxt.getText());
-		System.out.printf("Valor campo resposta: %s%n", resposta.getText());
-		System.out.printf("Valor campo dica: %s%n", dicaTxt.getText());
-		System.out.printf("Valor campo Alternativa1: %s%n", panelAltern.getAlternativa(0));
-		System.out.printf("Valor campo Alternativa2: %s%n", panelAltern.getAlternativa(1));
-		System.out.printf("Valor campo Alternativa3: %s%n", panelAltern.getAlternativa(2));
-		System.out.printf("Valor campo Alternativa4: %s%n", panelAltern.getAlternativa(3));
 		if ((perguntaTxt.getText().length() > 0) && (resposta.getText().length() > 0)
 				&& (dicaTxt.getText().length() > 0) && (panelAltern.getAlternativa(0).length() > 0)
 				&& (panelAltern.getAlternativa(1).length() > 0) && (panelAltern.getAlternativa(2).length() > 0)
@@ -294,7 +269,6 @@ public class FormPerguntas extends JPanel {
 			questao.setAlternativa3(panelAltern.getAlternativa(2));
 			questao.setAlternativa4(panelAltern.getAlternativa(3));
 			questao.setDificuldade(Dificuldade.DIFICIL);
-			System.out.printf("Valor campo Dificuldade: %s%n", questao.getDescricao());
 		} else {
 
 			JOptionPane.showMessageDialog(FormPerguntas.this,
@@ -364,29 +338,13 @@ public class FormPerguntas extends JPanel {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
 			if (facil.isSelected() == true) {
-				// for (int i = f; i < 1; i++) {
-				// alterCards();
-				// mostrarAlternativas();
-				// }
 				alterCards();
-				mostrarAlternativas();
 				layoutAltern.show(cardsPanelAltern, FacilQuestaoPanel.class.getName());
-
 			} else if (medio.isSelected() == true) {
-				// for (int i = f; i < 1; i++) {
-				// alterCards();
-				// mostrarAlternativas();
-				// }
 				alterCards();
-				mostrarAlternativas();
 				layoutAltern.show(cardsPanelAltern, MediaQuestaoPanel.class.getName());
 			} else if (dificil.isSelected() == true) {
-				// for (int i = f; i < 1; i++) {
-				// alterCards();
-				// mostrarAlternativas();
-				// }
 				alterCards();
-				mostrarAlternativas();
 				layoutAltern.show(cardsPanelAltern, DificilQuestaoPanel.class.getName());
 			}
 		}
