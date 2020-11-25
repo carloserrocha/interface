@@ -54,7 +54,6 @@ public class FormPerguntas extends JPanel {
 
 	private CardLayout layoutAltern;
 	private JPanel cardsPanelAltern;
-	// private int f = 0;
 
 	public FormPerguntas(AppFrame appFrame) {
 		this.frame = appFrame;
@@ -166,8 +165,7 @@ public class FormPerguntas extends JPanel {
 		criarBtn();
 	}
 
-	// Mudar para criarAlternativas()
-	public void mostrarAlternativas() {
+	public void criarAlternativas() {
 		facilPanel.painelAltenativas();
 		medioPanel.painelAltenativas();
 		dificilPanel.painelAltenativas();
@@ -177,7 +175,7 @@ public class FormPerguntas extends JPanel {
 		facilPanel = new FacilQuestaoPanel();
 		medioPanel = new MediaQuestaoPanel();
 		dificilPanel = new DificilQuestaoPanel();
-		mostrarAlternativas();
+		criarAlternativas();
 		cardsPanelAltern.add(facilPanel, FacilQuestaoPanel.class.getName());
 		cardsPanelAltern.add(medioPanel, MediaQuestaoPanel.class.getName());
 		cardsPanelAltern.add(dificilPanel, DificilQuestaoPanel.class.getName());
@@ -223,9 +221,32 @@ public class FormPerguntas extends JPanel {
 					criarQuestaoDificil();
 				}
 				if (idTxt.getText().isBlank()) {
-					MnDB.inserir(questao);
-					JOptionPane.showMessageDialog(FormPerguntas.this, "Questão criada com sucesso!", AppFrame.TITULO,
-							JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
+					if ((facil.isSelected() == true) && (perguntaTxt.getText().length() > 0)
+							&& (resposta.getText().length() > 0) && (dicaTxt.getText().length() > 0)
+							&& (panelAltern.getAlternativa(0).length() > 0)
+							&& (panelAltern.getAlternativa(1).length() > 0)) {
+						MnDB.inserir(questao);
+						JOptionPane.showMessageDialog(FormPerguntas.this, "Questão criada com sucesso!",
+								AppFrame.TITULO, JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
+					} else if ((medio.isSelected() == true) && (perguntaTxt.getText().length() > 0)
+							&& (resposta.getText().length() > 0) && (dicaTxt.getText().length() > 0)
+							&& (panelAltern.getAlternativa(0).length() > 0)
+							&& (panelAltern.getAlternativa(1).length() > 0)
+							&& (panelAltern.getAlternativa(2).length() > 0)) {
+						MnDB.inserir(questao);
+						JOptionPane.showMessageDialog(FormPerguntas.this, "Questão criada com sucesso!",
+								AppFrame.TITULO, JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
+					} else if ((dificil.isSelected() == true) && (perguntaTxt.getText().length() > 0)
+							&& (resposta.getText().length() > 0) && (dicaTxt.getText().length() > 0)
+							&& (panelAltern.getAlternativa(0).length() > 0)
+							&& (panelAltern.getAlternativa(1).length() > 0)
+							&& (panelAltern.getAlternativa(2).length() > 0)
+							&& (panelAltern.getAlternativa(3).length() > 0)) {
+						MnDB.inserir(questao);
+						JOptionPane.showMessageDialog(FormPerguntas.this, "Questão criada com sucesso!",
+								AppFrame.TITULO, JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
+					}
+
 					criarCards();
 				} else if (!idTxt.getText().isBlank()) {
 					questao.setId(Integer.parseInt(idTxt.getText()));
