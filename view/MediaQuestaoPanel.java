@@ -56,7 +56,8 @@ public class MediaQuestaoPanel extends QuestaoPanel {
 				e = alternativa[i].getText();
 				break;
 			default:
-				return null;
+			    System.out.printf("[ERRO] Painel Médio");
+			    break;
 		}
 
 		return e;

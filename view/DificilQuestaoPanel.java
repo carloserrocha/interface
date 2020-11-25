@@ -62,7 +62,8 @@ public class DificilQuestaoPanel extends QuestaoPanel {
 				e = alternativa[i].getText();
 				break;
 			default:
-				return null;
+			    System.out.printf("[ERRO] Painel Difícil");
+			    break;
 		}
 
 		return e;
