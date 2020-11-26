@@ -280,8 +280,6 @@ public class FormPerguntas extends JPanel {
 						MnDB.atualizar(questao);// atualiza a questão no "Banco de dados"
 						JOptionPane.showMessageDialog(FormPerguntas.this, "Questão Editada com sucesso!",
 								AppFrame.TITULO, JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
-						panelAltern.setAlternativa("", 0);
-						panelAltern.setAlternativa("", 1);
 					} else if ((medio.isSelected()) && (perguntaTxt.getText().length() > 0)
 							&& (resposta.getText().length() > 0) && (dicaTxt.getText().length() > 0)
 							&& (panelAltern.getAlternativa(0).length() > 0)
@@ -293,9 +291,6 @@ public class FormPerguntas extends JPanel {
 						MnDB.atualizar(questao);// atualiza a questão no "Banco de dados"
 						JOptionPane.showMessageDialog(FormPerguntas.this, "Questão Editada com sucesso!",
 								AppFrame.TITULO, JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
-						panelAltern.setAlternativa("", 0);
-						panelAltern.setAlternativa("", 1);
-						panelAltern.setAlternativa("", 2);
 					} else if ((dificil.isSelected()) && (perguntaTxt.getText().length() > 0)
 							&& (resposta.getText().length() > 0) && (dicaTxt.getText().length() > 0)
 							&& (panelAltern.getAlternativa(0).length() > 0)
@@ -308,13 +303,18 @@ public class FormPerguntas extends JPanel {
 						MnDB.atualizar(questao);// atualiza a questão no "Banco de dados"
 						JOptionPane.showMessageDialog(FormPerguntas.this, "Questão Editada com sucesso!",
 								AppFrame.TITULO, JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
-						panelAltern.setAlternativa("", 0);
-						panelAltern.setAlternativa("", 1);
-						panelAltern.setAlternativa("", 2);
-						panelAltern.setAlternativa("", 3);
 					}
 
 				}
+				ePanel.setAlternativa("", 0);
+				ePanel.setAlternativa("", 1);
+				mPanel.setAlternativa("", 0);
+				mPanel.setAlternativa("", 1);
+				mPanel.setAlternativa("", 2);
+				hPanel.setAlternativa("", 0);
+				hPanel.setAlternativa("", 1);
+				hPanel.setAlternativa("", 2);
+				hPanel.setAlternativa("", 3);
 				frame.mostrarPerguntas();// volta para a lista de perguntas
 			}
 		});
