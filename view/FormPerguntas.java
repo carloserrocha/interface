@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -48,9 +49,9 @@ public class FormPerguntas extends JPanel {
 
 	private Questao questao;
 	private QuestaoPanel panelAltern;
-	private QuestaoPanel facilPanel;
-	private QuestaoPanel medioPanel;
-	private QuestaoPanel dificilPanel;
+	private QuestaoPanel ePanel;
+	private QuestaoPanel mPanel;
+	private QuestaoPanel hPanel;
 
 	private CardLayout layoutAltern;
 	private JPanel cardsPanelAltern;
@@ -59,7 +60,7 @@ public class FormPerguntas extends JPanel {
 		this.frame = appFrame;
 		layout = new GridBagLayout();
 		constraints = new GridBagConstraints();
-
+		setBackground(new Color(0, 159, 136));
 		questao = null;
 
 		setLayout(layout);
@@ -74,11 +75,11 @@ public class FormPerguntas extends JPanel {
 					dicaTxt.setText("");
 					resposta.setText("");
 
-					if (facil.isSelected() == true) {
+					if (facil.isSelected()) {
 						facil.setSelected(true);
 						panelAltern.setAlternativa("", 0);
 						panelAltern.setAlternativa("", 1);
-					} else if (medio.isSelected() == true) {
+					} else if (medio.isSelected()) {
 						medio.setSelected(true);
 						panelAltern.setAlternativa("", 0);
 						panelAltern.setAlternativa("", 1);
@@ -129,30 +130,35 @@ public class FormPerguntas extends JPanel {
 	private void criarForm() {
 		JLabel rotulo;
 		rotulo = new JLabel("Id");
+		rotulo.setForeground(Color.WHITE);
 		addComponente(rotulo, 0, 0);
 		idTxt = new JTextField(30);
 		idTxt.setEditable(false);
 		addComponente(idTxt, 0, 1);
 
 		rotulo = new JLabel("Pergunta");
+		rotulo.setForeground(Color.WHITE);
 		addComponente(rotulo, 1, 0);
 		perguntaTxt = new JTextField(30);
 		perguntaTxt.setDocument(new LimitChar(100));
 		addComponente(perguntaTxt, 1, 1);
 
 		rotulo = new JLabel("Dica");
+		rotulo.setForeground(Color.WHITE);
 		addComponente(rotulo, 2, 0);
 		dicaTxt = new JTextField(30);
 		dicaTxt.setDocument(new LimitChar(100));
 		addComponente(dicaTxt, 2, 1);
 
 		rotulo = new JLabel("Resposta");
+		rotulo.setForeground(Color.WHITE);
 		addComponente(rotulo, 3, 0);
 		resposta = new JTextField(30);
 		resposta.setDocument(new LimitChar(100));
 		addComponente(resposta, 3, 1);
 
 		rotulo = new JLabel("Selecione a dificuldade da questão:");
+		rotulo.setForeground(Color.WHITE);
 		addComponente(rotulo, 4, 0);
 		colocarRadio();
 		layoutAltern = new CardLayout();
@@ -165,83 +171,98 @@ public class FormPerguntas extends JPanel {
 		criarBtn();
 	}
 
+	// Parte do Polimorfismo
 	public void criarAlternativas() {
-		facilPanel.painelAltenativas();
-		medioPanel.painelAltenativas();
-		dificilPanel.painelAltenativas();
+		ePanel.painelAltenativas();
+		mPanel.painelAltenativas();
+		hPanel.painelAltenativas();
 	}
 
+	// Parte do Polimorfismo
 	public void criarCards() {
-		facilPanel = new FacilQuestaoPanel();
-		medioPanel = new MediaQuestaoPanel();
-		dificilPanel = new DificilQuestaoPanel();
+		ePanel = new FacilQuestaoPanel();
+		mPanel = new MediaQuestaoPanel();
+		hPanel = new DificilQuestaoPanel();
 		criarAlternativas();
-		cardsPanelAltern.add(facilPanel, FacilQuestaoPanel.class.getName());
-		cardsPanelAltern.add(medioPanel, MediaQuestaoPanel.class.getName());
-		cardsPanelAltern.add(dificilPanel, DificilQuestaoPanel.class.getName());
+		cardsPanelAltern.add(ePanel, FacilQuestaoPanel.class.getName()); // Adiciona o objeto da super classe dentro
+																			// do cardsPanelAltern
+		cardsPanelAltern.add(mPanel, MediaQuestaoPanel.class.getName()); // Adiciona o objeto da super classe dentro
+																			// do cardsPanelAltern
+		cardsPanelAltern.add(hPanel, DificilQuestaoPanel.class.getName()); // Adiciona o objeto da super classe
+																			// dentro do cardsPanelAltern
 	}
 
+	// Parte do Polimorfismo
 	public void alterCards() {
 		if (facil.isSelected() == true) {
-			panelAltern = facilPanel;
+			panelAltern = ePanel; // Troca o objeto dentro do panelAltern
 		} else if (medio.isSelected() == true) {
-			panelAltern = medioPanel;
+			panelAltern = mPanel; // Troca o objeto dentro do panelAltern
 		} else if (dificil.isSelected() == true) {
-			panelAltern = dificilPanel;
+			panelAltern = hPanel; // Troca o objeto dentro do panelAltern
 		}
 	}
 
+	// Metodo que cria os botões
 	private void criarBtn() {
 		JPanel btnPanel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) btnPanel.getLayout();
 		flowLayout.setAlignment(FlowLayout.LEFT);
 
-		saveBtn();
+		saveBtn(); // Chama o metodo que cria o botão salvar
 		btnPanel.add(salvarBtn);
-		cancelBtn();
+		cancelBtn();// Chama o metodo que cria o botão cancelar
 		btnPanel.add(cancelarBtn);
-		criarCards();
+		criarCards(); // Chama o metoo que cria os Cards
+		btnPanel.setBackground(new Color(0, 159, 136));
 		addComponente(btnPanel, 10, 1, 2, 1);
 
 	}
 
+	// Metodo que cria o botão salvar
 	private void saveBtn() {
 		salvarBtn = new JButton("Salvar");
 		salvarBtn.addActionListener(new ActionListener() {
-
+			// metodo que "Escuta" a ação no botão salvar
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				questao = new Questao();
 
 				if (facil.isSelected()) {
-					criarQuestaoFacil();
+					criarQuestaoFacil(); // cria a questão fácil
 				} else if (medio.isSelected()) {
-					criarQuestaoMedia();
+					criarQuestaoMedia(); // cria a questão média
 				} else if (dificil.isSelected()) {
-					criarQuestaoDificil();
+					criarQuestaoDificil(); // cria a questão difícil
 				}
 				if (idTxt.getText().isBlank()) {
-					if ((facil.isSelected() == true) && (perguntaTxt.getText().length() > 0)
+					if ((facil.isSelected()) && (perguntaTxt.getText().length() > 0)
 							&& (resposta.getText().length() > 0) && (dicaTxt.getText().length() > 0)
 							&& (panelAltern.getAlternativa(0).length() > 0)
-							&& (panelAltern.getAlternativa(1).length() > 0)) {
+							&& (panelAltern.getAlternativa(1).length() > 0)) // Verificação dos campos antes de salvar a
+																				// questão fácil
+					{
 						MnDB.inserir(questao);
 						JOptionPane.showMessageDialog(FormPerguntas.this, "Questão criada com sucesso!",
 								AppFrame.TITULO, JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
-					} else if ((medio.isSelected() == true) && (perguntaTxt.getText().length() > 0)
+					} else if ((medio.isSelected()) && (perguntaTxt.getText().length() > 0)
 							&& (resposta.getText().length() > 0) && (dicaTxt.getText().length() > 0)
 							&& (panelAltern.getAlternativa(0).length() > 0)
 							&& (panelAltern.getAlternativa(1).length() > 0)
-							&& (panelAltern.getAlternativa(2).length() > 0)) {
+							&& (panelAltern.getAlternativa(2).length() > 0))// Verificação dos campos antes de salvar a
+																			// questão média
+					{
 						MnDB.inserir(questao);
 						JOptionPane.showMessageDialog(FormPerguntas.this, "Questão criada com sucesso!",
 								AppFrame.TITULO, JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
-					} else if ((dificil.isSelected() == true) && (perguntaTxt.getText().length() > 0)
+					} else if ((dificil.isSelected()) && (perguntaTxt.getText().length() > 0)
 							&& (resposta.getText().length() > 0) && (dicaTxt.getText().length() > 0)
 							&& (panelAltern.getAlternativa(0).length() > 0)
 							&& (panelAltern.getAlternativa(1).length() > 0)
 							&& (panelAltern.getAlternativa(2).length() > 0)
-							&& (panelAltern.getAlternativa(3).length() > 0)) {
+							&& (panelAltern.getAlternativa(3).length() > 0))// Verificação dos campos antes de salvar a
+																			// questão difícil
+					{
 						MnDB.inserir(questao);
 						JOptionPane.showMessageDialog(FormPerguntas.this, "Questão criada com sucesso!",
 								AppFrame.TITULO, JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
@@ -249,10 +270,41 @@ public class FormPerguntas extends JPanel {
 
 					criarCards();
 				} else if (!idTxt.getText().isBlank()) {
-					questao.setId(Integer.parseInt(idTxt.getText()));
-					MnDB.atualizar(questao);// atualiza a questão no "Banco de dados"
-					JOptionPane.showMessageDialog(FormPerguntas.this, "Questão Editada com sucesso!", AppFrame.TITULO,
-							JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
+					if ((facil.isSelected()) && (perguntaTxt.getText().length() > 0)
+							&& (resposta.getText().length() > 0) && (dicaTxt.getText().length() > 0)
+							&& (panelAltern.getAlternativa(0).length() > 0)
+							&& (panelAltern.getAlternativa(1).length() > 0)) // Verificação dos campos antes de editar a
+																				// questão fácil
+					{
+						questao.setId(Integer.parseInt(idTxt.getText()));
+						MnDB.atualizar(questao);// atualiza a questão no "Banco de dados"
+						JOptionPane.showMessageDialog(FormPerguntas.this, "Questão Editada com sucesso!",
+								AppFrame.TITULO, JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
+					} else if ((medio.isSelected()) && (perguntaTxt.getText().length() > 0)
+							&& (resposta.getText().length() > 0) && (dicaTxt.getText().length() > 0)
+							&& (panelAltern.getAlternativa(0).length() > 0)
+							&& (panelAltern.getAlternativa(1).length() > 0)
+							&& (panelAltern.getAlternativa(2).length() > 0)) // Verificação dos campos antes de editar a
+																				// questão média
+					{
+						questao.setId(Integer.parseInt(idTxt.getText()));
+						MnDB.atualizar(questao);// atualiza a questão no "Banco de dados"
+						JOptionPane.showMessageDialog(FormPerguntas.this, "Questão Editada com sucesso!",
+								AppFrame.TITULO, JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
+					} else if ((dificil.isSelected()) && (perguntaTxt.getText().length() > 0)
+							&& (resposta.getText().length() > 0) && (dicaTxt.getText().length() > 0)
+							&& (panelAltern.getAlternativa(0).length() > 0)
+							&& (panelAltern.getAlternativa(1).length() > 0)
+							&& (panelAltern.getAlternativa(2).length() > 0)
+							&& (panelAltern.getAlternativa(3).length() > 0)) // Verificação dos campos antes de editar a
+																				// questão difícil
+					{
+						questao.setId(Integer.parseInt(idTxt.getText()));
+						MnDB.atualizar(questao);// atualiza a questão no "Banco de dados"
+						JOptionPane.showMessageDialog(FormPerguntas.this, "Questão Editada com sucesso!",
+								AppFrame.TITULO, JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
+					}
+
 				}
 				frame.mostrarPerguntas();// volta para a lista de perguntas
 			}
@@ -260,6 +312,7 @@ public class FormPerguntas extends JPanel {
 
 	}
 
+	// Metodo que cria a questão Fácil
 	public void criarQuestaoFacil() {
 		if ((perguntaTxt.getText().length() > 0) && (resposta.getText().length() > 0)
 				&& (dicaTxt.getText().length() > 0) && (panelAltern.getAlternativa(0).length() > 0)
@@ -277,6 +330,7 @@ public class FormPerguntas extends JPanel {
 		}
 	}
 
+	// Metodo que cria a questão Média
 	public void criarQuestaoMedia() {
 		if ((perguntaTxt.getText().length() > 0) && (resposta.getText().length() > 0)
 				&& (dicaTxt.getText().length() > 0) && (panelAltern.getAlternativa(0).length() > 0)
@@ -295,6 +349,7 @@ public class FormPerguntas extends JPanel {
 		}
 	}
 
+	// Metodo que cria a questão Difícil
 	public void criarQuestaoDificil() {
 		if ((perguntaTxt.getText().length() > 0) && (resposta.getText().length() > 0)
 				&& (dicaTxt.getText().length() > 0) && (panelAltern.getAlternativa(0).length() > 0)
@@ -358,7 +413,12 @@ public class FormPerguntas extends JPanel {
 		dificil = new JRadioButton("Difícil", false);
 		dificil.setActionCommand("Difícil");
 		dificil.addItemListener(new ButtonHandler());
-
+		facil.setBackground(new Color(0, 159, 136));
+		facil.setForeground(Color.WHITE);
+		medio.setBackground(new Color(0, 159, 136));
+		medio.setForeground(Color.WHITE);
+		dificil.setBackground(new Color(0, 159, 136));
+		dificil.setForeground(Color.WHITE);
 		grupo1 = new ButtonGroup();
 		grupo1.add(facil);
 		grupo1.add(medio);
@@ -367,7 +427,7 @@ public class FormPerguntas extends JPanel {
 		painelRadio.add(facil);
 		painelRadio.add(medio);
 		painelRadio.add(dificil);
-
+		painelRadio.setBackground(new Color(0, 159, 136));
 		addComponente(painelRadio, 4, 1);
 
 	}

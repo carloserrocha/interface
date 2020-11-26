@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -13,6 +14,7 @@ public class MediaQuestaoPanel extends QuestaoPanel {
 		layout = new GridBagLayout();
 		constraints = new GridBagConstraints();
 		setLayout(layout);
+		setBackground(new Color(0, 159, 136));
 	}
 
 	@Override
@@ -21,8 +23,9 @@ public class MediaQuestaoPanel extends QuestaoPanel {
 		JLabel rotulo;
 		for (int i = 0; i <= 2; i++) {
 			rotulo = new JLabel("Alternativa " + (i + 1) + ":");
+			rotulo.setForeground(Color.WHITE);
 			addComponente(rotulo, i, 0);
-			alternativa[i] = new JTextField(30);
+			alternativa[i] = new JTextField(45);
 			alternativa[i].setDocument(new LimitChar(100));
 			addComponente(alternativa[i], i, 1);
 		}

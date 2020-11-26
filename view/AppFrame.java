@@ -33,7 +33,7 @@ public class AppFrame extends JFrame {
     }
 
     public void mostrar() {
-        cardsPanel.setSize(800, 600);
+        this.setSize(800, 600);
         setLocationRelativeTo(null);
         setVisible(true);
     }

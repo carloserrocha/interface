@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,7 +29,7 @@ public class ListaPerguntas extends JPanel {
 
     public ListaPerguntas(AppFrame appFrame) {
         setLayout(new BorderLayout(10, 10));
-
+        setBackground(new Color(0, 159, 136));
         this.frame = appFrame;
 
         criarBotoes();
@@ -44,7 +45,7 @@ public class ListaPerguntas extends JPanel {
         JPanel panel = new JPanel();
         FlowLayout layout = (FlowLayout) panel.getLayout();
         layout.setAlignment(FlowLayout.RIGHT);
-
+        panel.setBackground(new Color(0, 159, 136));
         voltarBtn = new JButton("Voltar");
         voltarBtn.addActionListener(new ActionListener() {
             @Override

@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -11,7 +12,7 @@ public abstract class QuestaoPanel extends JPanel {
 	protected GridBagConstraints constraints;
 
 	public QuestaoPanel() {
-
+		setBackground(new Color(0, 159, 136));
 		layout = new GridBagLayout();
 		constraints = new GridBagConstraints();
 	}

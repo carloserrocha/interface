@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -9,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -31,7 +33,7 @@ public class LoginProfessorPanel extends JPanel {
         layout = new GridBagLayout();
         constraints = new GridBagConstraints();
         setLayout(layout);
-
+        setBackground(new Color(0, 159, 136));
         criarForm();
         criarBotoes();
     }
@@ -60,21 +62,20 @@ public class LoginProfessorPanel extends JPanel {
         loginBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // String userpasswd = new String(password.getPassword());
-                // String userlogin = loginField.getText();
-                // if (userlogin.equals(LOGIN)) {
-                // if (userpasswd.equals(SENHA)) {
-                // frame.mostrarInicialProfessor();
-                // limparLogin();
-                // } else {
-                // JOptionPane.showMessageDialog(LoginProfessorPanel.this, "Senha incorreta!");
-                // limparLogin();
-                // }
-                // } else {
-                // JOptionPane.showMessageDialog(LoginProfessorPanel.this, "Login incorreto!");
-                // limparLogin();
-                // }
+                String userpasswd = new String(password.getPassword());
+                String userlogin = loginField.getText();
+                if (userlogin.equals(LOGIN)) {
+                if (userpasswd.equals(SENHA)) {
                 frame.mostrarInicialProfessor();
+                limparLogin();
+                } else {
+                JOptionPane.showMessageDialog(LoginProfessorPanel.this, "Senha incorreta!");
+                limparLogin();
+                }
+                } else {
+                JOptionPane.showMessageDialog(LoginProfessorPanel.this, "Login incorreto!");
+                limparLogin();
+                }
             }
         });
         addComponente(loginBtn, 2, 1);
