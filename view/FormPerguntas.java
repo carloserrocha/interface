@@ -280,6 +280,8 @@ public class FormPerguntas extends JPanel {
 						MnDB.atualizar(questao);// atualiza a questão no "Banco de dados"
 						JOptionPane.showMessageDialog(FormPerguntas.this, "Questão Editada com sucesso!",
 								AppFrame.TITULO, JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
+						panelAltern.setAlternativa("", 0);
+						panelAltern.setAlternativa("", 1);
 					} else if ((medio.isSelected()) && (perguntaTxt.getText().length() > 0)
 							&& (resposta.getText().length() > 0) && (dicaTxt.getText().length() > 0)
 							&& (panelAltern.getAlternativa(0).length() > 0)
@@ -291,6 +293,9 @@ public class FormPerguntas extends JPanel {
 						MnDB.atualizar(questao);// atualiza a questão no "Banco de dados"
 						JOptionPane.showMessageDialog(FormPerguntas.this, "Questão Editada com sucesso!",
 								AppFrame.TITULO, JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
+						panelAltern.setAlternativa("", 0);
+						panelAltern.setAlternativa("", 1);
+						panelAltern.setAlternativa("", 2);
 					} else if ((dificil.isSelected()) && (perguntaTxt.getText().length() > 0)
 							&& (resposta.getText().length() > 0) && (dicaTxt.getText().length() > 0)
 							&& (panelAltern.getAlternativa(0).length() > 0)
@@ -303,6 +308,10 @@ public class FormPerguntas extends JPanel {
 						MnDB.atualizar(questao);// atualiza a questão no "Banco de dados"
 						JOptionPane.showMessageDialog(FormPerguntas.this, "Questão Editada com sucesso!",
 								AppFrame.TITULO, JOptionPane.INFORMATION_MESSAGE);// Mensagem de confirmação ao usuário
+						panelAltern.setAlternativa("", 0);
+						panelAltern.setAlternativa("", 1);
+						panelAltern.setAlternativa("", 2);
+						panelAltern.setAlternativa("", 3);
 					}
 
 				}
